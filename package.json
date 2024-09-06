@@ -1,0 +1,36 @@
+{
+  "name": "anglican-parish-of-lancefield-with-romsey",
+  "version": "1.0.0",
+  "private": true,
+  "description": "anglican-parish-of-lancefield-with-romsey",
+  "author": "CalumH-Haystack",
+  "keywords": [
+    "gatsby"
+  ],
+  "scripts": {
+    "develop": "gatsby develop",
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@mui/material": "^6.0.2",
+    "gatsby": "^5.13.7",
+    "gatsby-omni-font-loader": "^2.0.2",
+    "gatsby-plugin-manifest": "^5.13.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-helmet": "^6.1.0",
+    "react-router-dom": "^6.26.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.19",
+    "@types/react": "^18.2.55",
+    "@types/react-dom": "^18.2.19",
+    "typescript": "^5.3.3"
+  }
+}

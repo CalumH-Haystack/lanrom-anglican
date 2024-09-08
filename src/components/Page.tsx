@@ -3,6 +3,7 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import { Routes, Route } from 'react-router-dom';
 import { useMediaQuery, useTheme } from '@mui/material';
+import NavBar from './NavBar';
 
 export default function Page() {
 	const theme = useTheme();
@@ -26,7 +27,7 @@ export default function Page() {
 						sm: '16px'
 					},
 					margin: {
-						xs: '0 12px',
+						xs: '0 16px',
 						sm: '0 auto'
 					},
 					backgroundColor: 'white',
@@ -40,6 +41,7 @@ export default function Page() {
 					}
 				}}
 			>
+				<NavBar />
 				<Routes></Routes>
 			</Box>
 		</Container>

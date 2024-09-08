@@ -1,7 +1,7 @@
 import { TypographyOptions } from '@mui/material/styles/createTypography';
 
 export const typography: TypographyOptions = {
-	fontFamily: 'IBM Plex Sans, Roboto',
+	fontFamily: 'Raleway',
 	body1: {
 		color: 'black',
 		'@media (max-width:600px)': {
@@ -9,7 +9,7 @@ export const typography: TypographyOptions = {
 		}
 	},
 	body2: {
-		fontFamily: 'IBM Plex Mono, Roboto',
+		fontFamily: 'Raleway',
 		color: 'black',
 		fontSize: '0.9em',
 		'@media (max-width:600px)': {

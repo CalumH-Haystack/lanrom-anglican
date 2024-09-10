@@ -5,6 +5,7 @@ import { Routes, Route } from 'react-router-dom';
 import { useMediaQuery, useTheme } from '@mui/material';
 import NavBar from './NavBar';
 import { NAVBAR_ITEMS } from '../utils/constants';
+import Footer from './Footer';
 
 export default function Page() {
 	const theme = useTheme();
@@ -21,14 +22,15 @@ export default function Page() {
 					my: 4,
 					display: 'flex',
 					flexDirection: 'column',
-					justifyContent: 'center',
+					justifyContent: 'start',
 					alignItems: 'center',
+					position: 'relative',
 					paddingHorizontal: {
 						xs: '8px',
 						sm: '16px'
 					},
 					margin: {
-						xs: '0 16px',
+						xs: '0 auto',
 						sm: '0 auto'
 					},
 					backgroundColor: 'white',
@@ -44,6 +46,7 @@ export default function Page() {
 			>
 				<NavBar items={NAVBAR_ITEMS} />
 				<Routes></Routes>
+				<Footer />
 			</Box>
 		</Container>
 	);

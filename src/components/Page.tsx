@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import { Routes, Route } from 'react-router-dom';
 import { useMediaQuery, useTheme } from '@mui/material';
 import NavBar from './NavBar';
+import { NAVBAR_ITEMS } from '../utils/constants';
 
 export default function Page() {
 	const theme = useTheme();
@@ -41,7 +42,7 @@ export default function Page() {
 					}
 				}}
 			>
-				<NavBar />
+				<NavBar items={NAVBAR_ITEMS} />
 				<Routes></Routes>
 			</Box>
 		</Container>

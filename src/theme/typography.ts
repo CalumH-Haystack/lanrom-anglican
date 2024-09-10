@@ -1,4 +1,21 @@
+import { SxProps, Theme, TypographyVariantsOptions } from '@mui/material';
 import { TypographyOptions } from '@mui/material/styles/createTypography';
+
+declare module '@mui/material/styles' {
+	interface TypographyVariants {
+		navBarMenu: SxProps<Theme> ;
+	}
+
+	interface TypographyVariantsOptions {
+    navBarMenu?: SxProps<Theme>;
+  }
+}
+
+declare module "@mui/material/Typography" {
+  interface TypographyPropsVariantOverrides {
+    navBarMenu: true;
+  }
+}
 
 export const typography: TypographyOptions = {
 	fontFamily: 'Raleway',
@@ -38,5 +55,10 @@ export const typography: TypographyOptions = {
 			fontSize: '1.0em',
 			fontWeight: '500'
 		}
-	}
+	},
+	navBarMenu: {
+		color: 'black',
+		fontSize: '0.9em',
+		textAlign: 'start'
+	},
 };

@@ -36,9 +36,6 @@ const NavButton = styled(Button)<ButtonProps>(({ theme }) => ({
 	padding: '12px 40px',
 	borderBottom: `1px solid ${theme.palette.primary.light}`,
 	flex: '1',
-	[theme.breakpoints.down('md')]: {
-		display: 'none'
-	},
 	'&:hover': {
 		backgroundColor: '#F5F5F5'
 	}
@@ -76,11 +73,18 @@ export default function NavBar({ items }: INavBar) {
 	const theme = useTheme();
 	const navigate = useNavigate();
 
+	const isCurrentPath = (item: INavBarItem) => {
+		return item.path == location.pathname || item.subMenu?.map(item => item.path).includes(location.pathname);
+	}
+
 	return (
 		<Box
 			sx={{
 				display: 'flex',
-				flexDirection: 'row'
+				flexDirection: 'row',
+				[theme.breakpoints.down('md')]: {
+					display: 'none'
+				}
 			}}
 			component='nav'
 		>
@@ -104,6 +108,10 @@ export default function NavBar({ items }: INavBar) {
 						<NavButton
 							className='NavButton'
 							onClick={() => navigate(item.path)}
+							sx={{
+								borderBottom: isCurrentPath(item) ? `2px solid ${theme.palette.primary.dark}` : 'auto',
+								height: 'calc(100% - 2px)'
+							}}
 						>
 							{item.name.toLocaleUpperCase()}
 						</NavButton>

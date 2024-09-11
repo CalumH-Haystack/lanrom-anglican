@@ -1,11 +1,10 @@
 import * as React from 'react';
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
 import { Routes, Route } from 'react-router-dom';
-import { useMediaQuery, useTheme } from '@mui/material';
-import NavBar from './NavBar';
+import { Box, Container, useTheme } from '@mui/material';
+import NavBar from './Navigation/NavBar';
 import { NAVBAR_ITEMS } from '../utils/constants';
 import Footer from './Footer';
+import { MobileNavBar } from './Navigation/MobileNavBar';
 
 export default function Page() {
 	const theme = useTheme();
@@ -14,7 +13,7 @@ export default function Page() {
 			disableGutters
 			sx={{
 				minWidth: '100vw',
-				backdropFilter: 'blur(4px)'
+				backdropFilter: 'blur(6px)'
 			}}
 		>
 			<Box
@@ -44,6 +43,7 @@ export default function Page() {
 					}
 				}}
 			>
+				<MobileNavBar />
 				<NavBar items={NAVBAR_ITEMS} />
 				<Routes></Routes>
 				<Footer />

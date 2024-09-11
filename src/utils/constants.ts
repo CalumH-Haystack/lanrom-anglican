@@ -1,4 +1,4 @@
-import { INavBarItem } from '../components/NavBar';
+import { INavBarItem } from '../components/Navigation/NavBar';
 
 export const NAVBAR_ITEMS: INavBarItem[] = [
 	{

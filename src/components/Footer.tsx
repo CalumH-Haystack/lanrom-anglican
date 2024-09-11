@@ -10,10 +10,9 @@ import {
 import Facebook from '@mui/icons-material/facebook';
 
 const FooterText = styled(Typography)(({ theme }) => ({
-	margin: useMediaQuery(theme.breakpoints.up('md'))
-		? '0px 16px'
-		: '2px 16px 2px',
-	textAlign: useMediaQuery(theme.breakpoints.up('sm')) ? 'center' : 'start',
+	margin: useMediaQuery(theme.breakpoints.up('md')) ? '0px 16px' : '2px 0 2px',
+	textAlign: useMediaQuery(theme.breakpoints.up('md')) ? 'center' : 'start',
+	alignSelf: useMediaQuery(theme.breakpoints.up('md')) ? 'center' : 'auto'
 }));
 
 export default function Footer() {
@@ -22,20 +21,39 @@ export default function Footer() {
 		<Box
 			sx={{
 				display: 'flex',
-				flexDirection: useMediaQuery(theme.breakpoints.up('md'))
-					? 'row'
-					: 'column',
+				flexDirection: {
+					xs: 'column',
+					md: 'row'
+				},
 				position: 'absolute',
+				left: 0,
+				right: 0,
 				bottom: 0,
 				justifyContent: 'center',
-				alignItems: 'center',
-				paddingHorizontal: '16px',
-				paddingY: '2px',
-				backgroundColor: '#303030',
-				width: '100%'
+				alignItems: {
+					xs: 'start',
+					lg: 'center',
+				},
+				paddingX: '16px',
+				paddingY: {
+					xs: '16px',
+					md: '4px'
+				},
+				backgroundColor: '#303030'
 			}}
 		>
-			<Link href='https://www.facebook.com/LancefieldRomseyAnglican' target='_blank'><Facebook sx={{ color: 'white', display: 'flex' }} /></Link>
+			<Link
+				href='https://www.facebook.com/LancefieldRomseyAnglican'
+				target='_blank'
+			>
+				<Facebook
+					sx={{
+						color: 'white',
+						display: 'flex',
+						fontSize: { xs: '2em', sm: '1em' },
+					}}
+				/>
+			</Link>
 			<FooterText variant='subtitle1'>
 				© 2024 Romsey Lancefield Anglican
 			</FooterText>

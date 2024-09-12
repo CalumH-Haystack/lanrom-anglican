@@ -5,9 +5,17 @@ import { relative } from 'path';
 import LancefieldRomseyIconWhite from '../../images/LancefieldRomseyIconWhite.png';
 import { useNavigate } from 'react-router-dom';
 
-export const MobileNavBar = () => {
+interface IMobileNavBar {
+	setOpenDrawer: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const MobileNavBar = ({ setOpenDrawer }: IMobileNavBar) => {
 	const theme = useTheme();
 	const navigate = useNavigate();
+
+	const handleMenuOnClick = () => {
+		setOpenDrawer(true);
+	}
 
 	return (
 		<AppBar
@@ -35,7 +43,7 @@ export const MobileNavBar = () => {
 					color='inherit'
 					aria-label='open drawer'
 					edge='start'
-					onClick={() => {}}
+					onClick={handleMenuOnClick}
 					sx={{ mr: 2, position: 'absolute', left: '16px' }}
 				>
 					<MenuIcon sx={{ fontSize: { xs: '1.5em', sm: '1.2em' } }} />

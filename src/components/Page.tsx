@@ -5,9 +5,13 @@ import NavBar from './Navigation/NavBar';
 import { NAVBAR_ITEMS } from '../utils/constants';
 import Footer from './Footer';
 import { MobileNavBar } from './Navigation/MobileNavBar';
+import { NavDrawer } from './Navigation/NavDrawer';
 
 export default function Page() {
 	const theme = useTheme();
+
+	const [drawerOpen, setDrawerOpen] = React.useState(false);
+
 	return (
 		<Container
 			disableGutters
@@ -43,7 +47,8 @@ export default function Page() {
 					}
 				}}
 			>
-				<MobileNavBar />
+				<MobileNavBar setOpenDrawer={setDrawerOpen}/>
+				<NavDrawer isOpen={drawerOpen} setIsOpen={setDrawerOpen} navItems={NAVBAR_ITEMS} />
 				<NavBar items={NAVBAR_ITEMS} />
 				<Routes></Routes>
 				<Footer />

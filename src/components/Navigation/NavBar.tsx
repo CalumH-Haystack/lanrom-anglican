@@ -113,7 +113,7 @@ export default function NavBar({ items }: INavBar) {
 								height: 'calc(100% - 2px)'
 							}}
 						>
-							{item.name.toLocaleUpperCase()}
+							{item.name}
 						</NavButton>
 						{item.subMenu && <DropMenu options={item.subMenu} />}
 					</Box>

@@ -3,18 +3,24 @@ import { TypographyOptions } from '@mui/material/styles/createTypography';
 
 declare module '@mui/material/styles' {
 	interface TypographyVariants {
-		navBarMenu: SxProps<Theme> ;
+		navBarMenu: SxProps<Theme>;
+		navDrawer: SxProps<Theme>;
+		navDrawerSub: SxProps<Theme>;
 	}
 
 	interface TypographyVariantsOptions {
-    navBarMenu?: SxProps<Theme>;
-  }
+		navBarMenu?: SxProps<Theme>;
+		navDrawer?: SxProps<Theme>;
+		navDrawerSub?: SxProps<Theme>;
+	}
 }
 
-declare module "@mui/material/Typography" {
-  interface TypographyPropsVariantOverrides {
-    navBarMenu: true;
-  }
+declare module '@mui/material/Typography' {
+	interface TypographyPropsVariantOverrides {
+		navBarMenu: true;
+		navDrawer: true;
+		navDrawerSub: true;
+	}
 }
 
 export const typography: TypographyOptions = {
@@ -59,6 +65,21 @@ export const typography: TypographyOptions = {
 	navBarMenu: {
 		color: 'black',
 		fontSize: '0.9em',
-		textAlign: 'start'
+		textAlign: 'start',
+		textTransform: 'uppercase'
 	},
+	navDrawer: {
+		fontFamily: 'Raleway',
+		color: 'black',
+		fontSize: '1.4em',
+		textTransform: 'uppercase',
+		letterSpacing: '0.2rem'
+	},
+	navDrawerSub: {
+		fontFamily: 'Raleway',
+		color: 'black',
+		fontSize: '1.2em',
+		textTransform: 'uppercase',
+		letterSpacing: '0.1rem'
+	}
 };

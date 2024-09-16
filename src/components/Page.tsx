@@ -6,6 +6,7 @@ import { NAVBAR_ITEMS } from '../utils/constants';
 import Footer from './Footer';
 import { MobileNavBar } from './Navigation/MobileNavBar';
 import { NavDrawer } from './Navigation/NavDrawer';
+import Home from './Pages/Home';
 
 export default function Page() {
 	const theme = useTheme();
@@ -47,10 +48,16 @@ export default function Page() {
 					}
 				}}
 			>
-				<MobileNavBar setOpenDrawer={setDrawerOpen}/>
-				<NavDrawer isOpen={drawerOpen} setIsOpen={setDrawerOpen} navItems={NAVBAR_ITEMS} />
+				<MobileNavBar setOpenDrawer={setDrawerOpen} />
+				<NavDrawer
+					isOpen={drawerOpen}
+					setIsOpen={setDrawerOpen}
+					navItems={NAVBAR_ITEMS}
+				/>
 				<NavBar items={NAVBAR_ITEMS} />
-				<Routes></Routes>
+				<Routes>
+					<Route path='/' element={<Home />} />
+				</Routes>
 				<Footer />
 			</Box>
 		</Container>

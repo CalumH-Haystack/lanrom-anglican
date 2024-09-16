@@ -6,12 +6,14 @@ declare module '@mui/material/styles' {
 		navBarMenu: SxProps<Theme>;
 		navDrawer: SxProps<Theme>;
 		navDrawerSub: SxProps<Theme>;
+		title: SxProps<Theme>;
 	}
 
 	interface TypographyVariantsOptions {
 		navBarMenu?: SxProps<Theme>;
 		navDrawer?: SxProps<Theme>;
 		navDrawerSub?: SxProps<Theme>;
+		title?: SxProps<Theme>;
 	}
 }
 
@@ -20,6 +22,7 @@ declare module '@mui/material/Typography' {
 		navBarMenu: true;
 		navDrawer: true;
 		navDrawerSub: true;
+		title: true;
 	}
 }
 
@@ -47,15 +50,15 @@ export const typography: TypographyOptions = {
 		}
 	},
 	h1: {
+		fontFamily: 'Raleway',
 		color: 'black',
-		fontSize: '1.6em',
-		'@media (max-width:600px)': {
-			fontSize: '1.8em'
-		}
+		fontSize: '1.7em',
+		fontWeight: '500',
+		textTransform: 'uppercase',
 	},
 	h2: {
 		color: 'black',
-		fontSize: '0.9em',
+		fontSize: '1.3em',
 		fontWeight: '400',
 		'@media (max-width:600px)': {
 			fontSize: '1.0em',
@@ -81,5 +84,13 @@ export const typography: TypographyOptions = {
 		fontSize: '1.2em',
 		textTransform: 'uppercase',
 		letterSpacing: '0.1rem'
+	},
+	title: {
+		fontFamily: 'Raleway',
+		color: 'black',
+		fontSize: '1.8em',
+		textTransform: 'capitalize',
+		textAlign: 'left',
+		lineHeight: '1.4em'
 	}
 };

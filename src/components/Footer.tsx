@@ -25,10 +25,10 @@ export default function Footer() {
 					xs: 'column',
 					md: 'row'
 				},
-				position: 'absolute',
-				left: 0,
-				right: 0,
-				bottom: 0,
+				width: '100%',
+				boxSizing: 'border-box',
+				WebkitBoxSizing: 'border-box',
+				MozBoxSizing: 'border-box',
 				justifyContent: 'center',
 				alignItems: {
 					xs: 'start',

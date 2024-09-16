@@ -28,7 +28,7 @@ const SplashScreen = ({ fade }: any) => {
 					height: '80px',
 					animation: 'ease-in-out infinite alternate',
 					animationName: 'scale',
-					animationDuration: '0.8s'
+					animationDuration: '1s'
 				}}
 				alt='Anglican Parish of Lancefield with Romsey Logo'
 				src={logo}

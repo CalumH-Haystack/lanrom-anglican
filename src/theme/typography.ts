@@ -58,11 +58,19 @@ export const typography: TypographyOptions = {
 	},
 	h2: {
 		color: 'black',
-		fontSize: '1.3em',
+		fontSize: '1.2em',
 		fontWeight: '400',
 		'@media (max-width:600px)': {
-			fontSize: '1.0em',
-			fontWeight: '500'
+			fontSize: '1.3em'
+		}
+	},
+	h3: {
+		color: 'black',
+		fontSize: '1em',
+		fontWeight: '200',
+		fontStyle: 'italic',
+		'@media (max-width:600px)': {
+			fontSize: '1.2em'
 		}
 	},
 	navBarMenu: {

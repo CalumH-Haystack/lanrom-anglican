@@ -18,6 +18,7 @@ const ImageBox = ({
 	variant = 'rounded',
 	aspectRatio = 'auto',
 	alt = '',
+	onClick,
 	sx
 }: ImageProps) => {
 	const img = new Image();
@@ -37,6 +38,7 @@ const ImageBox = ({
 				position: 'relative',
 				...sx
 			}}
+			onClick={onClick}
 		>
 			{imageLoading && (
 				<Box

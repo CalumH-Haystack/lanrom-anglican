@@ -46,3 +46,8 @@ export const NAVBAR_ITEMS: INavBarItem[] = [
 		path: '/contact'
 	}
 ];
+
+export const LAT_LONG = {
+	LANCEFIELD: { lat: -37.27936346552246, lng: 144.73131394633327 },
+	ROMSEY: { lat: -37.35181257872831, lng: 144.74268495122752 }
+};

@@ -10,7 +10,7 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import { relative } from 'path';
 import LancefieldRomseyIconWhite from '../../images/LancefieldRomseyIconWhite.png';
-import { useNavigate } from 'react-router-dom';
+import { navigate } from 'gatsby';
 
 interface IElevationScroll {
 	/**
@@ -45,7 +45,6 @@ interface IMobileNavBar {
 
 export const MobileNavBar = ({ setOpenDrawer }: IMobileNavBar) => {
 	const theme = useTheme();
-	const navigate = useNavigate();
 
 	const handleMenuOnClick = () => {
 		setOpenDrawer(true);

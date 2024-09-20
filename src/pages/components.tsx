@@ -5,11 +5,11 @@ import {
 	useMediaQuery,
 	useTheme
 } from '@mui/material';
-import ImageBox from '../../ImageBox';
+import ImageBox from '../components/ImageBox';
 import React, { useState } from 'react';
-import logo from '../../../images/logo.png';
-import { APIProvider, Map, Marker, useMap } from '@vis.gl/react-google-maps';
-import { LAT_LONG } from '../../../utils/constants';
+import logo from '../images/logo.png';
+import { APIProvider, Map, Marker } from '@vis.gl/react-google-maps';
+import { LAT_LONG } from '../utils/constants';
 
 export const LogoAndMission = () => {
 	return (
@@ -99,8 +99,9 @@ const MapBox = ({
 				defaultCenter={center}
 				defaultZoom={zoom}
 				onZoomChanged={e => setZoom(e.map.getZoom() ?? zoom)}
-				gestureHandling={'greedy'}
+				gestureHandling={'cooperative'}
 				disableDefaultUI={true}
+				minZoom={10}
 			>
 				<Marker
 					position={center}

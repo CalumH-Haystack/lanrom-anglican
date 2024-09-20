@@ -11,7 +11,7 @@ import {
 	Typography,
 	useTheme
 } from '@mui/material';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { navigate } from 'gatsby';
 
 interface IButton {
 	name: string;
@@ -41,9 +41,7 @@ const NavButton = styled(Button)<ButtonProps>(({ theme }) => ({
 	}
 }));
 
-const DropMenu = ({ options }: IDropMenu) => {
-	const location = useLocation();
-	const navigate = useNavigate();
+const DropMenu: React.FC<IDropMenu>  = ({ options }: IDropMenu) => {
 
 	return (
 		<Paper
@@ -71,7 +69,6 @@ const DropMenu = ({ options }: IDropMenu) => {
 
 export default function NavBar({ items }: INavBar) {
 	const theme = useTheme();
-	const navigate = useNavigate();
 
 	const isCurrentPath = (item: INavBarItem) => {
 		return item.path == location.pathname || item.subMenu?.map(item => item.path).includes(location.pathname);

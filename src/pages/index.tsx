@@ -1,15 +1,22 @@
-import * as React from "react"
-import type { HeadFC, PageProps } from "gatsby"
-import App from "../components/App/App";
+import * as React from 'react';
+import { JoinUs, LogoAndMission } from './components';
+import { EventCarousel } from '../components/EventCarousel';
+import App from '../components/App/App';
+import { HeadFC, PageProps } from 'gatsby';
 
-const IndexPage: React.FC<PageProps> = () => {
-  return (
-    <main>
-      <App />
-    </main>
-  )
-}
+const Home: React.FC<PageProps> = () => {
+	return (
+		<main>
+			<App>
+				<LogoAndMission />
+				<EventCarousel />
+				<JoinUs />
+			</App>
+		</main>
+	);
+};
 
-export default IndexPage
-
-export const Head: HeadFC = () => <title>Anglican Parish of Lancefield with Romsey</title>
+export default Home;
+export const Head: HeadFC = () => (
+	<title>Anglican Parish of Lancefield with Romsey</title>
+);

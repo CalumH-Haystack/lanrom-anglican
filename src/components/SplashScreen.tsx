@@ -5,11 +5,12 @@ import logo from '../images/logo.png';
 const SplashScreen = ({ fade }: any) => {
 	return (
 		<Box
+			id={'splash-screen'}
 			sx={{
 				width: '100%',
 				height: '100vh',
 				top: '0',
-				display: 'flex',
+				display: 'none',
 				flexDirection: 'column',
 				alignItems: 'center',
 				justifyContent: 'center',

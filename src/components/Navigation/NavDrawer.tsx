@@ -1,19 +1,15 @@
 import * as React from 'react';
 import {
 	Box,
-	Divider,
-	Drawer,
 	List,
 	ListItem,
 	ListItemButton,
 	ListItemText,
 	SwipeableDrawer,
-	Typography,
-	useTheme
 } from '@mui/material';
 import { INavBarItem } from './NavBar';
 import logo from '../../images/logo.png';
-import { useNavigate } from 'react-router-dom';
+import { navigate } from 'gatsby';
 
 interface INavDrawer {
 	isOpen: boolean;
@@ -22,9 +18,6 @@ interface INavDrawer {
 }
 
 export const NavDrawer = ({ isOpen, setIsOpen, navItems }: INavDrawer) => {
-	const theme = useTheme();
-	const navigate = useNavigate();
-
 	const container =
 		window !== undefined ? () => window.document.body : undefined;
 

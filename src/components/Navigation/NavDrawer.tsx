@@ -63,7 +63,7 @@ export const NavDrawer = ({ isOpen, setIsOpen, navItems }: INavDrawer) => {
 					/>
 					<List>
 						{navItems.map(item => (
-							<>
+							<Box key={item.path}>
 								<ListItem
 									key={item.path}
 									disablePadding
@@ -113,7 +113,7 @@ export const NavDrawer = ({ isOpen, setIsOpen, navItems }: INavDrawer) => {
 										</ListItemButton>
 									</ListItem>
 								))}
-							</>
+							</Box>
 						))}
 					</List>
 				</Box>

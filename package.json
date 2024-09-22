@@ -18,6 +18,11 @@
   "dependencies": {
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
+    "@fullcalendar/core": "^6.1.15",
+    "@fullcalendar/daygrid": "^6.1.15",
+    "@fullcalendar/google-calendar": "^6.1.15",
+    "@fullcalendar/list": "^6.1.15",
+    "@fullcalendar/react": "^6.1.15",
     "@mui/icons-material": "^6.0.2",
     "@mui/material": "^6.0.2",
     "@vis.gl/react-google-maps": "^1.2.0",

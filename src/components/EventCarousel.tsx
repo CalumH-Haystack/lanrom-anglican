@@ -48,6 +48,7 @@ export const EventCarousel = () => {
 									border: `1px solid #F5F5F5`
 								}}
 								onClick={() => openImageViewer()}
+								aspectRatio='auto 4/2'
 							/>
 						</Paper>
 					);

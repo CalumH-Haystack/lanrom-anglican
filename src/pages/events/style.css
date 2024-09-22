@@ -1,0 +1,12 @@
+.fc {
+  min-height: 100vh;
+}
+
+.fc-daygrid-event {
+  font-size: 0.4em;
+  color: black;
+}
+
+/* a.fc-event:hover {
+  white-space: normal;
+} */

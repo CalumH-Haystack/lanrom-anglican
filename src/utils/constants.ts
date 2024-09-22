@@ -7,43 +7,43 @@ export const NAVBAR_ITEMS: INavBarItem[] = [
 	},
 	{
 		name: 'About',
-		path: '/lancefield',
+		path: '/lancefield/',
 		subMenu: [
 			{
 				name: 'Christ Church Lancefield',
-				path: '/lancefield'
+				path: '/lancefield/'
 			},
 			{
 				name: 'St Paul’s Romsey',
-				path: '/romsey'
+				path: '/romsey/'
 			}
 		]
 	},
 	{
 		name: 'Outreach',
-		path: '/events',
+		path: '/events/',
 		subMenu: [
 			{
 				name: 'Events',
-				path: '/events'
+				path: '/events/'
 			},
 			{
 				name: 'Community Lunch',
-				path: '/lunch'
+				path: '/lunch/'
 			},
 			{
 				name: 'Op-Shop',
-				path: '/opshop'
+				path: '/opshop/'
 			}
 		]
 	},
 	{
 		name: 'Sermons',
-		path: '/sermons'
+		path: '/sermons/'
 	},
 	{
 		name: 'Contact',
-		path: '/contact'
+		path: '/contact/'
 	}
 ];
 

@@ -16,7 +16,7 @@ export const PageContainer = (props: ContainerProps) => {
 					md: '32px'
 				},
 				marginBottom: '64px',
-        width: '80%'
+        width: '90%'
 			}}
 		>
 			{props.children}

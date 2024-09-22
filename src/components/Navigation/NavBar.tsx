@@ -41,8 +41,7 @@ const NavButton = styled(Button)<ButtonProps>(({ theme }) => ({
 	}
 }));
 
-const DropMenu: React.FC<IDropMenu>  = ({ options }: IDropMenu) => {
-
+const DropMenu: React.FC<IDropMenu> = ({ options }: IDropMenu) => {
 	return (
 		<Paper
 			className='DropMenu'
@@ -51,7 +50,7 @@ const DropMenu: React.FC<IDropMenu>  = ({ options }: IDropMenu) => {
 			}}
 		>
 			{options.map(option => (
-				<>
+				<Box key={option.path}>
 					<MenuItem
 						key={option.path}
 						selected={location.pathname === option.path}
@@ -61,7 +60,7 @@ const DropMenu: React.FC<IDropMenu>  = ({ options }: IDropMenu) => {
 							{option.name}
 						</Typography>
 					</MenuItem>
-				</>
+				</Box>
 			))}
 		</Paper>
 	);
@@ -71,8 +70,11 @@ export default function NavBar({ items }: INavBar) {
 	const theme = useTheme();
 
 	const isCurrentPath = (item: INavBarItem) => {
-		return item.path == location.pathname || item.subMenu?.map(item => item.path).includes(location.pathname);
-	}
+		return (
+			item.path == location.pathname ||
+			item.subMenu?.map(item => item.path).includes(location.pathname)
+		);
+	};
 
 	return (
 		<Box
@@ -86,35 +88,36 @@ export default function NavBar({ items }: INavBar) {
 			component='nav'
 		>
 			{items.map(item => (
-				<>
-					<Box
+				<Box
+					sx={{
+						position: 'relative',
+						'& .DropMenu': {
+							display: 'none',
+							position: 'absolute',
+							top: '50px',
+							zIndex: '1',
+							flex: 1
+						},
+						'&:hover .DropMenu': {
+							display: 'block'
+						}
+					}}
+					key={item.path}
+				>
+					<NavButton
+						className='NavButton'
+						onClick={() => navigate(item.path)}
 						sx={{
-							position: 'relative',
-							'& .DropMenu': {
-								display: 'none',
-								position: 'absolute',
-								top: '50px',
-								zIndex: '1',
-								flex: 1
-							},
-							'&:hover .DropMenu': {
-								display: 'block'
-							}
+							borderBottom: isCurrentPath(item)
+								? `2px solid ${theme.palette.primary.dark}`
+								: 'auto',
+							height: 'calc(100% - 2px)'
 						}}
 					>
-						<NavButton
-							className='NavButton'
-							onClick={() => navigate(item.path)}
-							sx={{
-								borderBottom: isCurrentPath(item) ? `2px solid ${theme.palette.primary.dark}` : 'auto',
-								height: 'calc(100% - 2px)'
-							}}
-						>
-							{item.name}
-						</NavButton>
-						{item.subMenu && <DropMenu options={item.subMenu} />}
-					</Box>
-				</>
+						{item.name}
+					</NavButton>
+					{item.subMenu && <DropMenu options={item.subMenu} />}
+				</Box>
 			))}
 		</Box>
 	);

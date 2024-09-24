@@ -18,8 +18,6 @@ interface INavDrawer {
 }
 
 export const NavDrawer = ({ isOpen, setIsOpen, navItems }: INavDrawer) => {
-	const container =
-		window !== undefined ? () => window.document.body : undefined;
 
 	const handleDrawerToggle = () => {
 		setIsOpen(!isOpen);
@@ -35,7 +33,6 @@ export const NavDrawer = ({ isOpen, setIsOpen, navItems }: INavDrawer) => {
 	return (
 		<nav>
 			<SwipeableDrawer
-				container={container}
 				variant='temporary'
 				open={isOpen}
 				onOpen={handleDrawerToggle}

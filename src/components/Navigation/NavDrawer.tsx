@@ -18,6 +18,7 @@ interface INavDrawer {
 }
 
 export const NavDrawer = ({ isOpen, setIsOpen, navItems }: INavDrawer) => {
+	const pathName = (typeof window === 'undefined') ? location.pathname : '';
 
 	const handleDrawerToggle = () => {
 		setIsOpen(!isOpen);
@@ -25,8 +26,8 @@ export const NavDrawer = ({ isOpen, setIsOpen, navItems }: INavDrawer) => {
 
 	const isCurrentPath = (item: INavBarItem) => {
 		return (
-			item.path == location.pathname ||
-			item.subMenu?.map(item => item.path).includes(location.pathname)
+			item.path === pathName ||
+			item.subMenu?.map(item => item.path).includes(pathName)
 		);
 	};
 

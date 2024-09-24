@@ -24,6 +24,7 @@ export interface INavBarItem extends IButton {
 
 export interface IDropMenu {
 	options: IButton[];
+	pathName: string;
 }
 
 interface INavBar {
@@ -41,7 +42,7 @@ const NavButton = styled(Button)<ButtonProps>(({ theme }) => ({
 	}
 }));
 
-const DropMenu: React.FC<IDropMenu> = ({ options }: IDropMenu) => {
+const DropMenu: React.FC<IDropMenu> = ({ options, pathName }: IDropMenu) => {
 	return (
 		<Paper
 			className='DropMenu'
@@ -53,7 +54,7 @@ const DropMenu: React.FC<IDropMenu> = ({ options }: IDropMenu) => {
 				<Box key={option.path}>
 					<MenuItem
 						key={option.path}
-						selected={location.pathname === option.path}
+						selected={pathName === option.path}
 						onClick={() => navigate(option.path)}
 					>
 						<Typography variant='navBarMenu' style={{ whiteSpace: 'normal' }}>
@@ -68,11 +69,12 @@ const DropMenu: React.FC<IDropMenu> = ({ options }: IDropMenu) => {
 
 export default function NavBar({ items }: INavBar) {
 	const theme = useTheme();
+	const pathName = (typeof window === 'undefined') ? location.pathname : '';
 
 	const isCurrentPath = (item: INavBarItem) => {
 		return (
-			item.path == location.pathname ||
-			item.subMenu?.map(item => item.path).includes(location.pathname)
+			item.path == pathName ||
+			item.subMenu?.map(item => item.path).includes(pathName)
 		);
 	};
 
@@ -116,7 +118,7 @@ export default function NavBar({ items }: INavBar) {
 					>
 						{item.name}
 					</NavButton>
-					{item.subMenu && <DropMenu options={item.subMenu} />}
+					{item.subMenu && <DropMenu options={item.subMenu} pathName={pathName} />}
 				</Box>
 			))}
 		</Box>

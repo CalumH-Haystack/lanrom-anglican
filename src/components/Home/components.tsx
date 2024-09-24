@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import ImageBox from '../ImageBox';
 import React, { useState } from 'react';
-import logo from '../images/logo.png';
+import logo from '../../images/logo.png';
 import { APIProvider, Map, Marker } from '@vis.gl/react-google-maps';
 import { LAT_LONG } from '../../utils/constants';
 import { BOX_SHADOW } from '../../theme/palette';

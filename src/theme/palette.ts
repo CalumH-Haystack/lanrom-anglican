@@ -18,3 +18,5 @@ export const palette: PaletteOptions = {
     contrastText: '#eee'
   },
 }
+
+export const BOX_SHADOW = '1px 1px 2px 1px rgba(0, 0, 0, 0.2)';

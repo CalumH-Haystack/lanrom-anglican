@@ -5,11 +5,12 @@ import {
 	useMediaQuery,
 	useTheme
 } from '@mui/material';
-import ImageBox from '../components/ImageBox';
+import ImageBox from '../ImageBox';
 import React, { useState } from 'react';
 import logo from '../images/logo.png';
 import { APIProvider, Map, Marker } from '@vis.gl/react-google-maps';
-import { LAT_LONG } from '../utils/constants';
+import { LAT_LONG } from '../../utils/constants';
+import { BOX_SHADOW } from '../../theme/palette';
 
 export const LogoAndMission = () => {
 	return (
@@ -93,7 +94,7 @@ const MapBox = ({
 				style={{
 					width: props.width ? 'inherit' : isLargeScreen ? '350px' : '270px',
 					height: isLargeScreen ? '230px' : '180px',
-					boxShadow: '1px 1px 2px 1px rgba(0, 0, 0, 0.2)',
+					boxShadow: BOX_SHADOW,
 					color: 'white'
 				}}
 				defaultCenter={center}

@@ -5,6 +5,7 @@ import ImageBox from '../../components/ImageBox';
 import Banner from '../../images/ChristChurchLancefieldBanner.png';
 import RevJohn from '../../images/RevJohn.png';
 import ElizMac from '../../images/ElizMac.png';
+import { BOX_SHADOW } from '../../theme/palette';
 
 const Heading = styled(Typography)(() => ({
 	textAlign: 'left',
@@ -42,7 +43,7 @@ const Portrait = ({ src, desc }: IPortrait) => {
 					sm: '16px'
 				},
 				marginY: '32px',
-				boxShadow: '0 1px 2px 1px rgba(0, 0, 0, 0.19)'
+				boxShadow: BOX_SHADOW
 			}}
 		>
 			<ImageBox
@@ -78,7 +79,7 @@ const AboutLancefield = () => {
 				src={Banner}
 				alt={'Aerial view of Christ Church Lancefield'}
 				sx={{
-					boxShadow: '1px 1px 2px 1px rgba(0, 0, 0, 0.2)',
+					boxShadow: BOX_SHADOW,
 					marginBottom: '16px',
 					width: '100%'
 				}}

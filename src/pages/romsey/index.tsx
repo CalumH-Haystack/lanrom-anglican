@@ -3,6 +3,7 @@ import App from '../../components/App/App';
 import { styled, Typography } from '@mui/material';
 import ImageBox from '../../components/ImageBox';
 import Banner from '../../images/RomseyChurchBanner.png';
+import { BOX_SHADOW } from '../../theme/palette';
 
 const Heading = styled(Typography)(() => ({
 	textAlign: 'left',
@@ -22,7 +23,7 @@ const AboutRomsey = () => {
 				src={Banner}
 				alt={'Aerial view of Christ Church Lancefield'}
 				sx={{
-					boxShadow: '1px 1px 2px 1px rgba(0, 0, 0, 0.2)',
+					boxShadow: BOX_SHADOW,
 					marginBottom: '16px',
 					width: '100%'
 				}}

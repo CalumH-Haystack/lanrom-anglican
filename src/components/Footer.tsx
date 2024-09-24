@@ -7,7 +7,7 @@ import {
 	useMediaQuery,
 	useTheme
 } from '@mui/material';
-import Facebook from '@mui/icons-material';
+import { Facebook } from '@mui/icons-material';
 
 const FooterText = styled(Typography)(({ theme }) => ({
 	margin: useMediaQuery(theme.breakpoints.up('md')) ? '0px 16px' : '2px 0 2px',

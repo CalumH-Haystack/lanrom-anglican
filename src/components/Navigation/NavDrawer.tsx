@@ -10,6 +10,7 @@ import {
 import { INavBarItem } from './NavBar';
 import logo from '../../images/logo.png';
 import { navigate } from 'gatsby';
+import { useLocation } from '@reach/router';
 
 interface INavDrawer {
 	isOpen: boolean;
@@ -18,7 +19,8 @@ interface INavDrawer {
 }
 
 export const NavDrawer = ({ isOpen, setIsOpen, navItems }: INavDrawer) => {
-	const pathName = (typeof window === 'undefined') ? location.pathname : '';
+  const location = useLocation();
+	const pathName = location.pathname;
 
 	const handleDrawerToggle = () => {
 		setIsOpen(!isOpen);

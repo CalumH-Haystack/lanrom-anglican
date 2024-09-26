@@ -12,6 +12,7 @@ import {
 	useTheme
 } from '@mui/material';
 import { navigate } from 'gatsby';
+import { useLocation } from '@reach/router';
 
 interface IButton {
 	name: string;
@@ -69,7 +70,8 @@ const DropMenu: React.FC<IDropMenu> = ({ options, pathName }: IDropMenu) => {
 
 export default function NavBar({ items }: INavBar) {
 	const theme = useTheme();
-	const pathName = (typeof window === 'undefined') ? location.pathname : '';
+  const location = useLocation();
+	const pathName = location.pathname;
 
 	const isCurrentPath = (item: INavBarItem) => {
 		return (

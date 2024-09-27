@@ -1,9 +1,8 @@
 import * as React from 'react';
 import App from '../../components/App/App';
-import { styled, Typography } from '@mui/material';
-import ImageBox from '../../components/ImageBox';
-import Banner from '../../images/RomseyChurchBanner.png';
+import { Box, styled, Typography } from '@mui/material';
 import { BOX_SHADOW } from '../../theme/palette';
+import { StaticImage } from 'gatsby-plugin-image';
 
 const Heading = styled(Typography)(() => ({
 	textAlign: 'left',
@@ -19,16 +18,21 @@ const Paragraph = styled(Typography)(() => ({
 const AboutRomsey = () => {
 	return (
 		<App>
-			<ImageBox
-				src={Banner}
-				alt={'Aerial view of Christ Church Lancefield'}
+			<Box
 				sx={{
 					boxShadow: BOX_SHADOW,
 					marginBottom: '16px',
 					width: '100%'
 				}}
-				aspectRatio='auto 300/100'
-			/>
+			>
+				<StaticImage
+					src='../../images/RomseyChurchBanner.png'
+					alt="Front view of St Paul's Romsey"
+					placeholder='blurred'
+					layout='constrained'
+					aspectRatio={3}
+				/>
+			</Box>
 			<Heading variant='h1' sx={{ marginBottom: '16px' }}>
 				St Paul’s Romsey
 			</Heading>

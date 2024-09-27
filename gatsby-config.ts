@@ -21,6 +21,13 @@ const config: GatsbyConfig = {
 			}
 		},
 		{
+			resolve: 'gatsby-source-filesystem',
+			options: {
+				name: 'images',
+				path: `${__dirname}/src/images`
+			}
+		},
+		{
 			resolve: `gatsby-omni-font-loader`,
 			options: {
 				enableListener: true,
@@ -36,11 +43,13 @@ const config: GatsbyConfig = {
 				]
 			}
 		},
-		
+    `gatsby-plugin-image`,
+    `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
 	],
-	flags: {
-		DEV_SSR: true,
-	},
+	// flags: {
+	// 	DEV_SSR: true,
+	// },
 };
 
 export default config;

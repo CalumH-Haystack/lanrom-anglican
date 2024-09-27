@@ -5,12 +5,11 @@ import {
 	useMediaQuery,
 	useTheme
 } from '@mui/material';
-import ImageBox from '../ImageBox';
 import React, { useState } from 'react';
-import logo from '../../images/logo.png';
 import { APIProvider, Map, Marker } from '@vis.gl/react-google-maps';
 import { LAT_LONG } from '../../utils/constants';
 import { BOX_SHADOW } from '../../theme/palette';
+import { StaticImage } from 'gatsby-plugin-image';
 
 export const LogoAndMission = () => {
 	return (
@@ -38,10 +37,7 @@ export const LogoAndMission = () => {
 					paddingX: '32px'
 				}}
 			>
-				<ImageBox
-					src={logo}
-					alt='Anglican Parish of Lancefield with Romsey'
-					aspectRatio='234/265'
+				<Box
 					sx={{
 						flex: 2,
 						margin: {
@@ -49,7 +45,15 @@ export const LogoAndMission = () => {
 							md: '0 32px 0 0'
 						}
 					}}
-				/>
+				>
+					<StaticImage
+						src='../../images/logo.png'
+						alt="Anglican Parish of Lancefield with Romsey"
+						placeholder='blurred'
+						layout='constrained'
+						aspectRatio={234/265}
+					/>
+				</Box>
 				<Typography
 					variant='title'
 					sx={{

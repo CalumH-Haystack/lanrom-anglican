@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import Carousel from 'react-material-ui-carousel';
 import { Paper, useTheme, useMediaQuery } from '@mui/material';
-import ImageBox from './ImageBox';
 import Viewer from 'react-viewer';
 
 export const EventCarousel = () => {
@@ -42,14 +41,14 @@ export const EventCarousel = () => {
 							}}
 							elevation={0}
 						>
-							<ImageBox
+							{/* <ImageBox
 								src={item.href}
 								sx={{
 									border: `1px solid #F5F5F5`
 								}}
 								onClick={() => openImageViewer()}
 								aspectRatio='auto 4/2'
-							/>
+							/> */}
 						</Paper>
 					);
 				})}

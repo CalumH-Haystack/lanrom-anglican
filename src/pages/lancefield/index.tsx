@@ -1,11 +1,8 @@
 import * as React from 'react';
 import App from '../../components/App/App';
 import { Box, styled, Typography } from '@mui/material';
-import ImageBox from '../../components/ImageBox';
-import Banner from '../../images/ChristChurchLancefieldBanner.png';
-import RevJohn from '../../images/RevJohn.png';
-import ElizMac from '../../images/ElizMac.png';
 import { BOX_SHADOW } from '../../theme/palette';
+import { StaticImage } from 'gatsby-plugin-image';
 
 const Heading = styled(Typography)(() => ({
 	textAlign: 'left',
@@ -18,12 +15,12 @@ const Paragraph = styled(Typography)(() => ({
 	marginBottom: '16px'
 }));
 
-interface IPortrait {
-	src: any;
+interface IPortraitContainer {
+	children?: React.ReactNode;
 	desc: string;
 }
 
-const Portrait = ({ src, desc }: IPortrait) => {
+const PortraitContainer = ({ children, desc }: IPortraitContainer) => {
 	return (
 		<Box
 			display='flex'
@@ -46,14 +43,7 @@ const Portrait = ({ src, desc }: IPortrait) => {
 				boxShadow: BOX_SHADOW
 			}}
 		>
-			<ImageBox
-				src={src}
-				backgroundColor={'whitesmoke'}
-				animation='wave'
-				variant='rectangular'
-				alt={desc}
-				aspectRatio='auto 2 / 3'
-			/>
+			{children}
 			<Typography
 				variant='subtitle2'
 				sx={{
@@ -75,16 +65,21 @@ const Portrait = ({ src, desc }: IPortrait) => {
 const AboutLancefield = () => {
 	return (
 		<App>
-			<ImageBox
-				src={Banner}
-				alt={'Aerial view of Christ Church Lancefield'}
+			<Box
 				sx={{
 					boxShadow: BOX_SHADOW,
 					marginBottom: '16px',
 					width: '100%'
 				}}
-				aspectRatio='auto 300/100'
-			/>
+			>
+				<StaticImage
+					src='../../images/ChristChurchLancefieldBanner.png'
+					alt='Aerial view of Christ Church Lancefield'
+					placeholder='blurred'
+					layout='constrained'
+					aspectRatio={3}
+				/>
+			</Box>
 			<Heading variant='h1'>Christ Church Lancefield</Heading>
 			<Paragraph variant='body1'>
 				Christ Church Lancefield was built in 1870 on Wurundjeri Land. Located
@@ -101,7 +96,15 @@ const AboutLancefield = () => {
 					justifyContent: 'space-around'
 				}}
 			>
-				<Portrait src={RevJohn} desc='Rev John Christian MacCullagh' />
+				<PortraitContainer desc='Rev John Christian MacCullagh'>
+					<StaticImage
+						src='../../images/RevJohn.png'
+						alt='Rev John Christian MacCullagh'
+						placeholder='blurred'
+						layout='constrained'
+						aspectRatio={2 / 3}
+					/>
+				</PortraitContainer>
 				<Heading variant='h2'>Answering the Call</Heading>
 				<Paragraph variant='body1'>
 					In the early days of settlement in the inland districts of Victoria,
@@ -150,7 +153,15 @@ const AboutLancefield = () => {
 					justifyContent: 'space-around'
 				}}
 			>
-				<Portrait src={ElizMac} desc='Elizabeth MacCullagh' />
+				<PortraitContainer desc='Elizabeth MacCullagh'>
+					<StaticImage
+						src='../../images/ElizMac.png'
+						alt='Elizabeth MacCullagh'
+						placeholder='blurred'
+						layout='constrained'
+						aspectRatio={2 / 3}
+					/>
+				</PortraitContainer>
 				<Heading variant='h2'>Tragedy Strikes</Heading>
 				<Paragraph variant='body1'>
 					The Parish was large and covered a region from Bolinda to Cobaw and

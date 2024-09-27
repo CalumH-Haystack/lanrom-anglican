@@ -27,7 +27,6 @@
     "@mui/material": "^6.0.2",
     "@vis.gl/react-google-maps": "^1.2.0",
     "gatsby": "^5.13.7",
-    "gatsby-image": "^3.11.0",
     "gatsby-omni-font-loader": "^2.0.2",
     "gatsby-plugin-image": "^3.14.0-next.2",
     "gatsby-plugin-manifest": "^5.13.1",

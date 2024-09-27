@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import Carousel from 'react-material-ui-carousel';
 import { Paper, useTheme, useMediaQuery } from '@mui/material';
-import Viewer from 'react-viewer';
 
 export const EventCarousel = () => {
 	const theme = useTheme();
@@ -53,7 +52,7 @@ export const EventCarousel = () => {
 					);
 				})}
 			</Carousel>
-			<Viewer
+			{/* <Viewer
 				images={[{ src: items[currentImage].href, alt: items[currentImage].alt }]}
 				onClose={closeImageViewer}
 				visible={isViewerOpen}
@@ -67,7 +66,7 @@ export const EventCarousel = () => {
 				maxScale={3}
 				drag
 				className='Viewer'
-			/>
+			/> */}
 		</>
 	);
 };

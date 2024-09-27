@@ -15,7 +15,7 @@ function App({ children }: IAppProps) {
 
 	useEffect(() => {
 		const checkFontsLoaded = async () => {
-			await document.fonts.ready;
+			await document && document.fonts.ready;
 
 			setTimeout(() => {
 				setFadeSplash(true);

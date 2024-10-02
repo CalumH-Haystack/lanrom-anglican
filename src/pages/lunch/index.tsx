@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Typography } from '@mui/material';
 import App from '../../components/App/App';
+import { HeadFC } from 'gatsby';
 
 const Lunch = () => {
 	return (
@@ -11,3 +12,6 @@ const Lunch = () => {
 };
 
 export default Lunch;
+export const Head: HeadFC = () => (
+	<title>Community Lunch</title>
+);

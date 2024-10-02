@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Typography } from '@mui/material';
 import App from '../../components/App/App';
 import Calendar from './components';
+import { HeadFC } from 'gatsby';
 
 const Events = () => {
 	return (
@@ -17,3 +18,6 @@ const Events = () => {
 };
 
 export default Events;
+export const Head: HeadFC = () => (
+	<title>Upcoming Events</title>
+);

@@ -3,6 +3,7 @@ import App from '../../components/App/App';
 import { Box, styled, Typography } from '@mui/material';
 import { BOX_SHADOW } from '../../theme/palette';
 import { StaticImage } from 'gatsby-plugin-image';
+import { HeadFC } from 'gatsby';
 
 const Heading = styled(Typography)(() => ({
 	textAlign: 'left',
@@ -64,3 +65,6 @@ const AboutRomsey = () => {
 };
 
 export default AboutRomsey;
+export const Head: HeadFC = () => (
+	<title>About St Paul's Romsey</title>
+);

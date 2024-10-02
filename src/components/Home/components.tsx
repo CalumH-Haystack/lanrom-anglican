@@ -122,7 +122,7 @@ export const JoinUs = () => {
 	const theme = useTheme();
 	const isMobileView = useMediaQuery(theme.breakpoints.down('md'));
 
-	const googleMapsApiKey = process.env.GOOGLE_MAPS_API_KEY ?? '';
+	const googleMapsApiKey = process.env.GATSBY_GOOGLE_MAPS_API_KEY ?? '';
 	const LanMap = () => (
 		<MapBox
 			center={LAT_LONG.LANCEFIELD}

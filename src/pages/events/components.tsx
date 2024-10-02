@@ -30,9 +30,9 @@ export default function Calendar() {
           month: 'Month',
           listWeek: 'Week'
         }}
-				googleCalendarApiKey={process.env.GOOGLE_CALENDAR_API_KEY}
+				googleCalendarApiKey={process.env.GATSBY_GOOGLE_CALENDAR_API_KEY}
 				events={{
-					googleCalendarId: process.env.CALENDAR_ID
+					googleCalendarId: process.env.GATSBY_CALENDAR_ID
 				}}
 				eventClick={arg => {
 					window.open(arg.event.url, '_blank');

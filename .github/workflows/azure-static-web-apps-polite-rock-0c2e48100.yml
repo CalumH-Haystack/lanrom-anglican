@@ -12,10 +12,10 @@ on:
 env:
   AZURE_FUNCTIONAPP_PACKAGE_PATH: 'api' # set this to the path to your web app project, defaults to the repository root
   NODE_VERSION: '20.x' # set this to the node version to use (supports 8.x, 10.x, 12.x)
-  REACT_APP_GOOGLE_CALENDAR_API_KEY: ${{ secrets.REACT_APP_GOOGLE_CALENDAR_API_KEY }}
-  REACT_APP_CALENDAR_ID: ${{ secrets.REACT_APP_CALENDAR_ID }}
-  REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
-  REACT_APP_RECAPTCHA_SITE_KEY: ${{ secrets.REACT_APP_RECAPTCHA_SITE_KEY }}
+  GATSBY_GOOGLE_CALENDAR_API_KEY: ${{ secrets.REACT_APP_GOOGLE_CALENDAR_API_KEY }}
+  GATSBY_CALENDAR_ID: ${{ secrets.REACT_APP_CALENDAR_ID }}
+  GATSBY_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
+  GATSBY_RECAPTCHA_SITE_KEY: ${{ secrets.REACT_APP_RECAPTCHA_SITE_KEY }}
 
 jobs:
   build_and_deploy_job:

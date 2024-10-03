@@ -5,7 +5,7 @@ export async function announcements(request: HttpRequest, context: InvocationCon
 
     const name = request.query.get('name') || await request.text() || 'world';
 
-    return { body: `Hello, ${name}!` };
+    return { body: `Greetings, ${name}!` };
 };
 
 app.http('announcements', {

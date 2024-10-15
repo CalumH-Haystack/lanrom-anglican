@@ -1,21 +1,32 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Carousel from 'react-material-ui-carousel';
 import { Paper, useTheme, useMediaQuery } from '@mui/material';
+import axios from 'axios';
+import { GatsbyImage } from "gatsby-plugin-image"
 
 export const EventCarousel = () => {
 	const theme = useTheme();
-	const isMobileView = useMediaQuery(theme.breakpoints.down('md'))
+	const [imageUrls, setImageUrls] = useState(new Array<string>());
 
-	const [currentImage, setCurrentImage] = useState(0);
-	const [isViewerOpen, setIsViewerOpen] = useState(false);
+	const fetchUrls = async () => {
+		await axios
+			.get(process.env.GATSBY_AZ_ANNOUNCEMENTS_URL ?? '', {
+				headers: {
+					'x-functions-key': process.env.GATSBY_AZ_FUNCTION_KEY
+				}
+			})
+			.then(res => {
+				const urls: Array<string> = res.data?.urls ?? [];
+				console.log(urls);
 
-	const openImageViewer = useCallback(() => {
-		setIsViewerOpen(true);
-	}, []);
-
-	const closeImageViewer = () => {
-		setIsViewerOpen(false);
+				setImageUrls(urls);
+			})
+			.catch((e) => console.error(e));
 	};
+
+	useEffect(() => {
+		fetchUrls();
+	}, []);
 
 	return (
 		<>
@@ -27,11 +38,10 @@ export const EventCarousel = () => {
 					width: '100%',
 					marginBottom: '32px'
 				}}
-				onChange={now => setCurrentImage(now ?? 0)}
-				autoPlay={!isViewerOpen}
+				autoPlay
 				stopAutoPlayOnHover
 			>
-				{items.map((item, index) => {
+				{imageUrls.map((imgUrl, index) => {
 					return (
 						<Paper
 							className='Project'
@@ -40,33 +50,20 @@ export const EventCarousel = () => {
 							}}
 							elevation={0}
 						>
-							{/* <ImageBox
-								src={item.href}
-								sx={{
-									border: `1px solid #F5F5F5`
-								}}
-								onClick={() => openImageViewer()}
-								aspectRatio='auto 4/2'
-							/> */}
+							<GatsbyImage alt={`Carousel Image No. ${index + 1}`} image={{
+								layout: 'fullWidth',
+								width: 16,
+								height: 9,
+								images: {
+									fallback: {
+										src: imgUrl
+									}
+								}
+							}} />
 						</Paper>
 					);
 				})}
 			</Carousel>
-			{/* <Viewer
-				images={[{ src: items[currentImage].href, alt: items[currentImage].alt }]}
-				onClose={closeImageViewer}
-				visible={isViewerOpen}
-				rotatable={false}
-				changeable={false}
-				noFooter
-				noClose={isMobileView}
-				onMaskClick={closeImageViewer}
-				zoomSpeed={0.8}
-				minScale={1}
-				maxScale={3}
-				drag
-				className='Viewer'
-			/> */}
 		</>
 	);
 };

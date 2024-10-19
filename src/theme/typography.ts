@@ -29,8 +29,9 @@ declare module '@mui/material/Typography' {
 export const typography: TypographyOptions = {
 	fontFamily: 'Raleway',
 	body1: {
+		fontSize: '0.9em',
 		'@media (max-width:600px)': {
-			fontSize: '1.2em'
+			fontSize: '1.3em'
 		}
 	},
 	body2: {
@@ -56,11 +57,14 @@ export const typography: TypographyOptions = {
 			fontSize: '1.2em'
 		}
 	},
+	button: {
+		fontSize: '0.9em'
+	},
 	h1: {
 		fontFamily: 'Raleway',
 		fontSize: '1.7em',
 		fontWeight: '500',
-		textTransform: 'uppercase',
+		textTransform: 'uppercase'
 	},
 	h2: {
 		fontSize: '1.2em',

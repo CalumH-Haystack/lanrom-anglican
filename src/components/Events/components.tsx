@@ -38,6 +38,7 @@ export default function Calendar() {
 					window.open(arg.event.url, '_blank');
 					arg.jsEvent.preventDefault();
 				}}
+				displayEventEnd={false}
 			/>
 		</Box>
 	);

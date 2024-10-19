@@ -51,7 +51,6 @@ export const LogoAndMission = () => {
 						alt="Anglican Parish of Lancefield with Romsey"
 						placeholder='blurred'
 						layout='constrained'
-						aspectRatio={234/265}
 					/>
 				</Box>
 				<Typography
@@ -93,12 +92,11 @@ const MapBox = ({
 	const theme = useTheme();
 	const isLargeScreen = useMediaQuery(theme.breakpoints.up('lg'));
 	return (
-		<Box {...props}>
+		<Box {...props} boxShadow={BOX_SHADOW}>
 			<Map
 				style={{
 					width: props.width ? 'inherit' : isLargeScreen ? '350px' : '270px',
 					height: isLargeScreen ? '230px' : '180px',
-					boxShadow: BOX_SHADOW,
 					color: 'white'
 				}}
 				defaultCenter={center}

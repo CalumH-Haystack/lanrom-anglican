@@ -9,11 +9,7 @@ export const EventCarousel = () => {
 
 	const fetchUrls = async () => {
 		await axios
-			.get(process.env.GATSBY_AZ_ANNOUNCEMENTS_URL ?? '', {
-				headers: {
-					'x-functions-key': process.env.GATSBY_AZ_FUNCTION_KEY
-				}
-			})
+			.get(process.env.GATSBY_AZ_ANNOUNCEMENTS_URL ?? '')
 			.then(res => {
 				const urls: Array<string> = res.data?.urls ?? [];
 				console.log(urls);

@@ -1,20 +1,10 @@
 import * as React from 'react';
 import App from '../../components/App/App';
-import { Box, styled, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { BOX_SHADOW } from '../../theme/palette';
 import { StaticImage } from 'gatsby-plugin-image';
 import { HeadFC } from 'gatsby';
-
-const Heading = styled(Typography)(() => ({
-	textAlign: 'left',
-	width: '100%'
-}));
-
-const Paragraph = styled(Typography)(() => ({
-	textAlign: 'left',
-	width: '100%',
-	marginBottom: '16px'
-}));
+import { Heading, Paragraph } from '../../utils';
 
 const AboutRomsey = () => {
 	return (

@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { Typography } from '@mui/material';
 import App from '../../components/App/App';
 import { HeadFC } from 'gatsby';
+import { SermonPlayer } from '../../components/Sermons/components';
 
 const Sermons = () => {
 	return (
 		<App>
-			<Typography variant='h1' >Sermons</Typography>
+			<SermonPlayer />
 		</App>
 	);
 };

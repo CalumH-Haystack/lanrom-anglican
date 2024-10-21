@@ -152,8 +152,7 @@ export const SermonPlayer = () => {
 	};
 
   const sermonFilter = (sermon: ISermonData): boolean => {
-    console.log(search, series);
-    const matchesSearch: boolean = search ? sermon.name.includes(search) : true;
+    const matchesSearch: boolean = search ? sermon.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()) : true;
     const matchesSeries: boolean = series === 'All' ? true : sermon.series === series;
 
     return matchesSearch && matchesSeries;

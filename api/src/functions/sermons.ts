@@ -30,22 +30,19 @@ export async function sermons(
 			containerName
 		);
 
+		console.log(`Retrieved at ${Date().toLocaleString()}:`);
 		for await (const blob of containerClient.listBlobsFlat()) {
-			console.log('Retrieved: \n');
-
 			// Get Blob Client from name, to get the URL
-			const tempBlockBlobClient = await containerClient.getBlockBlobClient(
-				blob.name
-			);
-			const getTags = await tempBlockBlobClient.getTags();
+			const tempBlockBlobClient = containerClient.getBlockBlobClient(blob.name);
+			const properties = await tempBlockBlobClient.getProperties();
 			const sermon: ISermonData = {
 				url: tempBlockBlobClient.url,
-				name: getTags.tags['name'],
-				author: getTags.tags['author'],
-				series: getTags.tags['series'],
-				date: getTags.tags['date']
+				name: properties.metadata.name,
+				author: properties.metadata.author,
+				series: properties.metadata.series,
+				date: properties.metadata.date
 			};
-			console.log(sermon, '\n');
+			console.log(sermon);
 
 			// Push newly created sermon object
 			sermons.push(sermon);

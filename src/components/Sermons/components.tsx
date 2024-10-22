@@ -11,28 +11,34 @@ import {
 	useMediaQuery,
 	useTheme
 } from '@mui/material';
-import React, { createRef, RefObject, useState } from 'react';
+import React, { createRef, RefObject, useEffect, useState } from 'react';
 import { BOX_SHADOW } from '../../theme/palette';
 import { StaticImage } from 'gatsby-plugin-image';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import { Pause, PlayArrow } from '@mui/icons-material';
 import H5AudioPlayer from 'react-h5-audio-player';
+import axios from 'axios';
 
 export interface ISermonData {
 	name: string;
 	author: string;
 	date: string;
 	url: string;
-  series: string;
+	series: string;
 }
 
 interface ISeriesDropdown extends OutlinedSelectProps {
 	value: string;
 	setValue: React.Dispatch<React.SetStateAction<string>>;
+	sermons: Array<ISermonData>;
 }
 
-const SeriesDropdown = ({ value, setValue, sx }: ISeriesDropdown) => {
+const SeriesDropdown = ({ value, setValue, sermons, sx }: ISeriesDropdown) => {
+	const seriesArr = new Array<string>();
+	for (const sermon of sermons) {
+		if (!seriesArr.includes(sermon.series)) seriesArr.push(sermon.series);
+	}
 	return (
 		<FormControl sx={sx} fullWidth>
 			<InputLabel id='series-label' size='small'>
@@ -49,7 +55,8 @@ const SeriesDropdown = ({ value, setValue, sx }: ISeriesDropdown) => {
 				size='small'
 			>
 				<MenuItem value={'All'}>All</MenuItem>
-				<MenuItem value={'Psalms'}>Psalms</MenuItem>
+				{seriesArr.map(series => <MenuItem value={series}>{series}</MenuItem>)}
+				
 			</Select>
 		</FormControl>
 	);
@@ -138,6 +145,22 @@ export const SermonPlayer = () => {
 	const [series, setSeries] = useState('All');
 	const [nowPlaying, setNowPlaying] = useState('');
 	const [paused, setPaused] = useState(true);
+	const [sermons, setSermons] = useState(new Array<ISermonData>());
+
+	const fetchSermons = async () => {
+		await axios
+			.get(process.env.GATSBY_AZ_SERMONS_URL ?? '')
+			.then(res => {
+				const sermons: Array<ISermonData> = res.data?.sermons ?? [];
+
+				setSermons(sermons);
+			})
+			.catch(e => console.error(e));
+	};
+
+	useEffect(() => {
+		fetchSermons();
+	}, []);
 
 	const onPause = () => {
 		playerRef.current?.audio.current?.pause();
@@ -151,12 +174,15 @@ export const SermonPlayer = () => {
 		}
 	};
 
-  const sermonFilter = (sermon: ISermonData): boolean => {
-    const matchesSearch: boolean = search ? sermon.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()) : true;
-    const matchesSeries: boolean = series === 'All' ? true : sermon.series === series;
+	const sermonFilter = (sermon: ISermonData): boolean => {
+		const matchesSearch: boolean = search
+			? sermon.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+			: true;
+		const matchesSeries: boolean =
+			series === 'All' ? true : sermon.series === series;
 
-    return matchesSearch && matchesSeries;
-  }
+		return matchesSearch && matchesSeries;
+	};
 
 	return (
 		<Box
@@ -234,6 +260,7 @@ export const SermonPlayer = () => {
 				<SeriesDropdown
 					value={series}
 					setValue={setSeries}
+					sermons={sermons}
 					sx={{
 						maxWidth: {
 							xs: 'auto',
@@ -242,10 +269,12 @@ export const SermonPlayer = () => {
 					}}
 				/>
 			</Box>
-			<Box sx={{
-        maxHeight: '60vh',
-        overflowY: 'scroll'
-      }}>
+			<Box
+				sx={{
+					maxHeight: '60vh',
+					overflowY: 'scroll'
+				}}
+			>
 				{sermons.filter(sermonFilter).map(sermon => {
 					return (
 						<SermonListItem
@@ -262,20 +291,3 @@ export const SermonPlayer = () => {
 		</Box>
 	);
 };
-
-const sermons: Array<ISermonData> = [
-	{
-		name: 'Best and Worst of Times',
-		author: 'Rev Len Greenhall',
-		date: '26/05/2024',
-    series: 'Len Greenhall 2024',
-		url: 'https://lanromstorage.blob.core.windows.net/sermons/718c95_2df5d19dff9c4b2ca9fc96319f83bd63.mp3'
-	},
-	{
-		name: 'Psalm 15',
-		author: 'Calum Hay',
-		date: '11/02/2024',
-    series: 'Psalms',
-		url: 'https://lanromstorage.blob.core.windows.net/sermons/718c95_4ab472f41bf84f958245b102b6ed3fb7.mp3'
-	},
-];

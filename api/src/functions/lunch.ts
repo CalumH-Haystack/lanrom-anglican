@@ -49,6 +49,7 @@ export async function lunch(
 					howMany: howMany,
 				}
 			})
+			console.log('Response: ', response);
 
 		return { body: response.statusText, status: response.status };
 	} catch (e) {

@@ -12,6 +12,17 @@ import { BOX_SHADOW } from '../../theme/palette';
 import { Heading, initData, Section } from '../../utils';
 import { StyledTextInput } from '../TextInput';
 import { FIELD_NAMES, VALIDATIONS } from './constants';
+import { IApiLunch, submitLunch } from './api';
+
+function SendEmail({ firstName, lastName, howMany }: IApiLunch): string {
+	var subject = 'Community Lunch RSVP';
+	var body = `Name: ${firstName} ${lastName}\r\nAttending: ${howMany}`;
+	var uri = `mailto:admin@lancefieldromseyanglican.org?subject=`;
+	uri += encodeURIComponent(subject);
+	uri += '&body=';
+	uri += encodeURIComponent(body);
+	return uri;
+}
 
 const LunchForm = () => {
 	const theme = useTheme();
@@ -23,6 +34,49 @@ const LunchForm = () => {
 	const [howMany, setHowMany] = useState(initData(useRef()));
 	const [isNotRobot, setIsNotRobot] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
+	const [apiError, setApiError] = useState<boolean | null>(null);
+
+	const data = [firstName, lastName, email, howMany];
+	const setData = [setFirstName, setLastName, setEmail, setHowMany];
+
+	const setAllTouched = () => {
+		data.forEach((datum: any, index) => {
+			setData[index]({
+				...datum,
+				touched: true
+			});
+		});
+	};
+
+	const onSubmit = async () => {
+		let errorRefs: any[] = [];
+		data.forEach(val => {
+			if (val.hasError) {
+				errorRefs.push(val.ref);
+			}
+		});
+
+		if (errorRefs.length > 0) {
+			setAllTouched();
+			errorRefs[0].current.focus();
+		} else {
+			setIsLoading(true);
+			const dataObject: IApiLunch = {
+				firstName: firstName.value,
+				lastName: lastName.value,
+				email: email.value,
+				howMany: howMany.value
+			};
+			let response;
+			try {
+				response = await submitLunch(dataObject);
+				setApiError(false);
+			} catch (e) {
+				setApiError(true);
+			}
+			setIsLoading(false);
+		}
+	};
 
 	return (
 		<Box
@@ -31,24 +85,26 @@ const LunchForm = () => {
 				border: `1.5px solid black`,
 				borderRadius: '2px',
 				padding: '32px',
-        maxWidth: '420px'
+				maxWidth: '420px'
 			}}
 		>
 			<Heading
 				variant='h1'
 				sx={{
 					textAlign: 'center',
-					marginBottom: '32px',
+					marginBottom: '32px'
 				}}
 			>
 				Come to our next lunch
 			</Heading>
-			<Box sx={{
-        width: '100%',
-        display: 'flex',
-        justifyContent: 'center',
-        marginBottom: '16px'
-      }}>
+			<Box
+				sx={{
+					width: '100%',
+					display: 'flex',
+					justifyContent: 'center',
+					marginBottom: '16px'
+				}}
+			>
 				<Box
 					sx={{
 						width: 'fit-content'
@@ -86,48 +142,73 @@ const LunchForm = () => {
 							data={howMany}
 							setData={setHowMany}
 							validation={VALIDATIONS[FIELD_NAMES.HOW_MANY]}
-              inputMode='numeric'
+							inputMode='numeric'
 						/>
 					</Section>
 				</Box>
 			</Box>
-			<Box
-				sx={{
-					display: 'flex',
-					paddingBottom: '16px',
-					justifyContent: 'center'
-				}}
-			>
-				<ReCAPTCHA
-					sitekey={process.env.GATSBY_RECAPTCHA_SITE_KEY ?? ''}
-					onChange={() => setIsNotRobot(true)}
-					onErrored={() => setIsNotRobot(false)}
-					onExpired={() => setIsNotRobot(false)}
-					size={isMobileView ? 'compact' : 'normal'}
-				/>
-			</Box>
-			{isLoading ? (
-				<Box
-					sx={{
-						width: 'inherit',
-						alignContent: 'center'
-					}}
-				>
-					<CircularProgress />
-				</Box>
-			) : (
-				<Button
-					variant='contained'
-					sx={{
-						padding: '4px 48px',
-						margin: '16px auto',
-						backgroundColor: theme.palette.grey[900]
-					}}
-					// onClick={() => onSubmit()}
-					disabled={!isNotRobot}
-				>
-					<Typography variant='button'>Submit</Typography>
-				</Button>
+			{apiError === null && (
+				<>
+					<Box
+						sx={{
+							display: 'flex',
+							paddingBottom: '16px',
+							justifyContent: 'center'
+						}}
+					>
+						<ReCAPTCHA
+							sitekey={process.env.GATSBY_RECAPTCHA_SITE_KEY ?? ''}
+							onChange={() => setIsNotRobot(true)}
+							onErrored={() => setIsNotRobot(false)}
+							onExpired={() => setIsNotRobot(false)}
+							size={isMobileView ? 'compact' : 'normal'}
+						/>
+					</Box>
+					{isLoading ? (
+						<Box
+							sx={{
+								width: 'inherit',
+								alignContent: 'center'
+							}}
+						>
+							<CircularProgress />
+						</Box>
+					) : (
+						<Button
+							variant='contained'
+							sx={{
+								padding: '4px 48px',
+								margin: '16px auto',
+								backgroundColor: theme.palette.grey[900]
+							}}
+							onClick={() => onSubmit()}
+							disabled={!isNotRobot}
+						>
+							<Typography variant='button'>Submit</Typography>
+						</Button>
+					)}
+				</>
+			)}
+			{apiError && (
+				<Heading variant='h2' sx={{ textAlign: 'center' }}>
+					There was an issue submitting, you can contact us directly through our{' '}
+					<a
+						href={SendEmail({
+							firstName: firstName.value,
+							lastName: lastName.value,
+							howMany: howMany.value,
+							email: email.value
+						})}
+					>
+						email
+					</a>{' '}
+					instead.
+				</Heading>
+			)}
+			{apiError !== null && !apiError && (
+				<Heading variant='h2' sx={{ textAlign: 'center' }}>
+					Submitted, see you there!
+				</Heading>
 			)}
 		</Box>
 	);

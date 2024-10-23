@@ -11,7 +11,6 @@ export async function contact(
 ): Promise<HttpResponseInit> {
 	const firstName = request.params.firstName;
 	const lastName = request.params.lastName;
-	const email = request.params.email;
 	const subject = request.params.subject;
 	const body = request.params.body;
 
@@ -31,10 +30,6 @@ export async function contact(
 		{
 			email: process.env["ORG_EMAIL"]
 		},
-		// Remove second email when testing in local
-		{
-			email: email
-		}
 	];
 
 	try {
@@ -46,7 +41,6 @@ export async function contact(
 				template_variables: {
 					firstName: firstName,
 					lastName: lastName,
-					email: email,
 					subject: subject,
 					body: body
 				}

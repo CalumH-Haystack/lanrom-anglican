@@ -10,9 +10,8 @@ export async function announcements(
 	request: HttpRequest,
 	context: InvocationContext
 ): Promise<HttpResponseInit> {
+	const urls: Array<string> = [];
 
-    const urls: Array<string> = [];
-    
 	try {
 		const blobServiceClient = new BlobServiceClient(
 			`https://lanromstorage.blob.core.windows.net`
@@ -31,7 +30,7 @@ export async function announcements(
 			const tempBlockBlobClient = containerClient.getBlockBlobClient(blob.name);
 
 			// Push blob URL
-            urls.push(tempBlockBlobClient.url);
+			urls.push(tempBlockBlobClient.url);
 		}
 	} catch {
 		e => {
@@ -39,9 +38,11 @@ export async function announcements(
 		};
 	}
 
-	return { jsonBody: {
-        urls
-    } };
+	return {
+		jsonBody: {
+			urls
+		}
+	};
 }
 
 app.http('announcements', {

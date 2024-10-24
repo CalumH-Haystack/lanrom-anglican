@@ -35,7 +35,7 @@ interface INavBar {
 const NavButton = styled(Button)<ButtonProps>(({ theme }) => ({
 	color: 'black',
 	borderRadius: '0',
-	padding: '12px 40px',
+	padding: '12px 32px',
 	borderBottom: `1px solid ${theme.palette.primary.light}`,
 	flex: '1',
 	'&:hover': {

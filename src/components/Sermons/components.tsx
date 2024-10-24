@@ -1,5 +1,6 @@
 import {
 	Box,
+	CircularProgress,
 	FormControl,
 	IconButton,
 	InputLabel,
@@ -55,8 +56,9 @@ const SeriesDropdown = ({ value, setValue, sermons, sx }: ISeriesDropdown) => {
 				size='small'
 			>
 				<MenuItem value={'All'}>All</MenuItem>
-				{seriesArr.map(series => <MenuItem value={series}>{series}</MenuItem>)}
-				
+				{seriesArr.map(series => (
+					<MenuItem value={series}>{series}</MenuItem>
+				))}
 			</Select>
 		</FormControl>
 	);
@@ -137,8 +139,6 @@ const SermonListItem = ({
 };
 
 export const SermonPlayer = () => {
-	const theme = useTheme();
-	const isMobileView = useMediaQuery(theme.breakpoints.down('md'));
 	const playerRef: RefObject<H5AudioPlayer> = createRef();
 
 	const [search, setSearch] = useState('');
@@ -146,8 +146,10 @@ export const SermonPlayer = () => {
 	const [nowPlaying, setNowPlaying] = useState('');
 	const [paused, setPaused] = useState(true);
 	const [sermons, setSermons] = useState(new Array<ISermonData>());
+	const [isLoading, setIsLoading] = useState(true);
 
 	const fetchSermons = async () => {
+		setIsLoading(true);
 		await axios
 			.get(process.env.GATSBY_AZ_SERMONS_URL ?? '')
 			.then(res => {
@@ -156,6 +158,7 @@ export const SermonPlayer = () => {
 				setSermons(sermons);
 			})
 			.catch(e => console.error(e));
+		setIsLoading(false);
 	};
 
 	useEffect(() => {
@@ -233,7 +236,9 @@ export const SermonPlayer = () => {
 						md: 'row'
 					},
 					boxShadow: 1,
-					zIndex: 100
+					zIndex: 100,
+					backgroundColor: 'white',
+					borderBottom: '1px solid #eeeeee'
 				}}
 			>
 				<TextField
@@ -269,16 +274,45 @@ export const SermonPlayer = () => {
 					}}
 				/>
 			</Box>
+			{isLoading && (
+				<Box
+					sx={{
+						width: 'inherit',
+						alignContent: 'center',
+						minHeight: '40vh',
+						backgroundColor: 'white'
+					}}
+				>
+					<CircularProgress />
+				</Box>
+			)}
+			{!isLoading && sermons.length === 0 && (
+				<Box
+					sx={{
+						width: 'inherit',
+						alignContent: 'center',
+						minHeight: '20vh',
+						backgroundColor: 'white'
+					}}
+				>
+					<Typography variant='body1'>
+						There aren't any sermons available at the moment.
+					</Typography>
+				</Box>
+			)}
 			<Box
 				sx={{
 					maxHeight: '60vh',
-					overflowY: 'scroll'
+					overflowY: 'scroll',
+					backgroundColor: 'white'
 				}}
 			>
 				{sermons.filter(sermonFilter).map(sermon => {
+					const fileName = sermon.url.split('/').pop();
+					const title = sermon.name ?? fileName?.slice(-10);
 					return (
 						<SermonListItem
-							name={sermon.name}
+							name={title}
 							author={sermon.author}
 							date={sermon.date}
 							playing={sermon.url === nowPlaying && !paused}

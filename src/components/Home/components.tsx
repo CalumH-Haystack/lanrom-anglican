@@ -48,23 +48,28 @@ export const LogoAndMission = () => {
 				>
 					<StaticImage
 						src='../../images/logo.png'
-						alt="Anglican Parish of Lancefield with Romsey"
+						alt='Anglican Parish of Lancefield with Romsey'
 						placeholder='blurred'
 						layout='constrained'
 					/>
 				</Box>
-				<Typography
-					variant='title'
+				<Box
 					sx={{
-						flex: 3,
-						textAlign: {
-							xs: 'center',
-							md: 'left'
-						}
+						flex: 3
 					}}
 				>
-					Connecting With God In Our Community
-				</Typography>
+					<Typography
+						variant='title'
+						sx={{
+							textAlign: {
+								xs: 'center',
+								md: 'left'
+							}
+						}}
+					>
+						Connecting With God In Our Community
+					</Typography>
+				</Box>
 			</Box>
 		</Box>
 	);

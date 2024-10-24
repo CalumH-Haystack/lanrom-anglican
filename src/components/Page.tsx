@@ -41,7 +41,7 @@ export default function Page({ children }: IPageProps) {
 						xs: '0 auto',
 						sm: '0 auto'
 					},
-					backgroundColor: 'white',
+					backgroundColor: '#fdfdfd',
 					minHeight: '100vh',
 					boxShadow: '0 0 2px 2px rgba(0, 0, 0, 0.08)',
 					maxWidth: {

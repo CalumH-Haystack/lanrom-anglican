@@ -66,14 +66,15 @@ export const MobileNavBar = ({ setOpenDrawer }: IMobileNavBar) => {
 				position='sticky'
 			>
 				<Toolbar sx={{ position: 'relative', justifyContent: 'center' }}>
-					<Box
-						component='img'
-						src={LancefieldRomseyIconWhite}
-						sx={{
-							height: '2em'
-						}}
-						onClick={() => navigate('/')}
-					/>
+					<IconButton onClick={() => navigate('/')}>
+						<Box
+							component='img'
+							src={LancefieldRomseyIconWhite}
+							sx={{
+								height: '1.7em'
+							}}
+						/>
+					</IconButton>
 					<IconButton
 						color='inherit'
 						aria-label='open drawer'

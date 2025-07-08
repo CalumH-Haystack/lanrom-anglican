@@ -55,7 +55,7 @@ export default function Footer() {
 				/>
 			</Link>
 			<FooterText variant='subtitle1'>
-				© 2024 Romsey Lancefield Anglican
+				© 2025 Romsey Lancefield Anglican
 			</FooterText>
 		</Box>
 	);

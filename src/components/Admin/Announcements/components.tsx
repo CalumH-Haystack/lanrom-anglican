@@ -75,9 +75,10 @@ export const Notification = ({ data, setData }: INotification) => (
 
 interface IAnnouncementsList {
 	imageUrls: Array<string>;
+  onDelete: Function;
 }
 
-export const AnnouncementsList = ({ imageUrls }: IAnnouncementsList) => {
+export const AnnouncementsList = ({ imageUrls, onDelete }: IAnnouncementsList) => {
 	const theme = useTheme();
 	const isMobileView = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -99,6 +100,7 @@ export const AnnouncementsList = ({ imageUrls }: IAnnouncementsList) => {
 								<IconButton
 									sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
 									aria-label={`delete ${title}`}
+                  onClick={() => onDelete(title)}
 								>
 									<DeleteIcon />
 								</IconButton>
@@ -113,12 +115,14 @@ export const AnnouncementsList = ({ imageUrls }: IAnnouncementsList) => {
 
 interface IUploadWidget {
   file: File | undefined;
-  setFile: React.Dispatch<React.SetStateAction<File | undefined>>; 
+  setFile: React.Dispatch<React.SetStateAction<File | undefined>>;
+  onUpload: Function;
 }
 
 export const UploadWidget = ({
   file,
-  setFile
+  setFile,
+  onUpload
 }: IUploadWidget) => {
 	const theme = useTheme();
 
@@ -178,6 +182,7 @@ export const UploadWidget = ({
 					backgroundColor: theme.palette.grey[900]
 				}}
 				disabled={file === undefined}
+        onClick={() => onUpload()}
 			>
 				Upload
 			</Button>

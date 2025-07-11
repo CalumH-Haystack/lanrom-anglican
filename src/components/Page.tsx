@@ -47,8 +47,7 @@ export default function Page({ children }: IPageProps) {
 					maxWidth: {
 						xs: '100%',
 						sm: '500px',
-						md: '800px',
-						lg: '1000px'
+						md: '1000px'
 					}
 				}}
 			>

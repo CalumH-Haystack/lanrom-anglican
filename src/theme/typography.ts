@@ -84,7 +84,10 @@ export const typography: TypographyOptions = {
 	navBarMenu: {
 		fontSize: '0.9em',
 		textAlign: 'start',
-		textTransform: 'uppercase'
+		textTransform: 'uppercase',
+		'@media (max-width:600px)': {
+			fontSize: '0.6em'
+		}
 	},
 	navDrawer: {
 		fontFamily: 'Raleway',

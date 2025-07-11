@@ -16,6 +16,7 @@ export const PageContainer = (props: ContainerProps) => {
 					md: '32px'
 				},
 				marginBottom: '64px',
+				minHeight: '80vh',
         width: '90%'
 			}}
 		>

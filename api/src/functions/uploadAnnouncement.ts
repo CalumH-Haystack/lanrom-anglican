@@ -12,6 +12,7 @@ export async function uploadAnnouncement(
 	context: InvocationContext
 ): Promise<HttpResponseInit> {
 	let result = null;
+	let status = 400;
 
 	try {
 		var formdata = await request.formData();
@@ -27,22 +28,26 @@ export async function uploadAnnouncement(
 			containerName
 		);
 
-		if(await containerClient.getBlobClient(name).exists()) {
+		if (await containerClient.getBlobClient(name).exists()) {
 			`${Date.now().toString}_${name}`;
 		}
 
 		result = await containerClient.uploadBlockBlob(name, image, image.size);
-
+		context.log(result);
+		status = 200;
 	} catch {
 		e => {
-			context.log(e);
+			context.error(e);
+			
+			result = e;
 		};
 	}
 
 	return {
 		jsonBody: {
 			result
-		}
+		},
+		status
 	};
 }
 

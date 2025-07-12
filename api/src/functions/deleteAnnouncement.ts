@@ -12,6 +12,7 @@ export async function deleteAnnouncement(
 ): Promise<HttpResponseInit> {
 	const blobName: string = request.params.blobName;
 	let result = null;
+	let status = 400;
 
 	try {
 		const blobServiceClient = new BlobServiceClient(
@@ -23,18 +24,22 @@ export async function deleteAnnouncement(
 			containerName
 		);
 
-		result = containerClient.deleteBlob(blobName)
+		result = await containerClient.deleteBlob(blobName);
+		context.log(result);
+		status = 200;
 
 	} catch {
 		e => {
-			context.log(e);
+			context.error(e);
+			result = e;
 		};
 	}
 
 	return {
 		jsonBody: {
 			result
-		}
+		},
+		status
 	};
 }
 

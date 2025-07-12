@@ -13,6 +13,11 @@ export async function deleteAnnouncement(
 	const blobName: string = request.params.blobName;
 	let result = null;
 	let status = 400;
+	context.log('HelloWorld');
+	context.trace('HelloWorld');
+	context.info('HelloWorld');
+	context.warn('HelloWorld');
+	context.error('HelloWorld');
 
 	try {
 		const blobServiceClient = new BlobServiceClient(
@@ -27,10 +32,9 @@ export async function deleteAnnouncement(
 		result = await containerClient.deleteBlob(blobName);
 		context.log(result);
 		status = 200;
-
 	} catch {
 		e => {
-			context.error(e);
+			context.log(e);
 			result = e;
 		};
 	}

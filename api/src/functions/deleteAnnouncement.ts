@@ -6,7 +6,7 @@ import {
 } from '@azure/functions';
 import { BlobServiceClient } from '@azure/storage-blob';
 
-export async function announcements(
+export async function deleteAnnouncement(
 	request: HttpRequest,
 	context: InvocationContext
 ): Promise<HttpResponseInit> {
@@ -38,8 +38,8 @@ export async function announcements(
 	};
 }
 
-app.http('announcements', {
-	methods: ['GET'],
+app.http('deleteAnnouncement', {
+	methods: ['DELETE'],
 	authLevel: 'anonymous',
-	handler: announcements
+	handler: deleteAnnouncement
 });

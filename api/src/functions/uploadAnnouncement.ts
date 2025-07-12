@@ -7,7 +7,7 @@ import {
 import { BlobServiceClient } from '@azure/storage-blob';
 import { File } from 'node:buffer';
 
-export async function announcements(
+export async function uploadAnnouncement(
 	request: HttpRequest,
 	context: InvocationContext
 ): Promise<HttpResponseInit> {
@@ -46,8 +46,8 @@ export async function announcements(
 	};
 }
 
-app.http('announcements', {
-	methods: ['GET'],
+app.http('uploadAnnouncement', {
+	methods: ['POST'],
 	authLevel: 'anonymous',
-	handler: announcements
+	handler: uploadAnnouncement
 });

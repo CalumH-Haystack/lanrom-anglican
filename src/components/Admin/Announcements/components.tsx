@@ -44,6 +44,7 @@ interface INotification {
 export const Notification = ({ data, setData }: INotification) => (
 	<Collapse in={data.isOpen}>
 		<Alert
+			severity={data.severity}
 			action={
 				<IconButton
 					aria-label='close'
@@ -58,7 +59,7 @@ export const Notification = ({ data, setData }: INotification) => (
 					<CloseIcon fontSize='inherit' />
 				</IconButton>
 			}
-			sx={{ mb: 2 }}
+			sx={{ margin: '16px' }}
 		>
 			<Paragraph
 				sx={{
@@ -75,10 +76,13 @@ export const Notification = ({ data, setData }: INotification) => (
 
 interface IAnnouncementsList {
 	imageUrls: Array<string>;
-  onDelete: Function;
+	onDelete: Function;
 }
 
-export const AnnouncementsList = ({ imageUrls, onDelete }: IAnnouncementsList) => {
+export const AnnouncementsList = ({
+	imageUrls,
+	onDelete
+}: IAnnouncementsList) => {
 	const theme = useTheme();
 	const isMobileView = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -100,7 +104,7 @@ export const AnnouncementsList = ({ imageUrls, onDelete }: IAnnouncementsList) =
 								<IconButton
 									sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
 									aria-label={`delete ${title}`}
-                  onClick={() => onDelete(title)}
+									onClick={() => onDelete(title)}
 								>
 									<DeleteIcon />
 								</IconButton>
@@ -114,16 +118,12 @@ export const AnnouncementsList = ({ imageUrls, onDelete }: IAnnouncementsList) =
 };
 
 interface IUploadWidget {
-  file: File | undefined;
-  setFile: React.Dispatch<React.SetStateAction<File | undefined>>;
-  onUpload: Function;
+	file: File | undefined;
+	setFile: React.Dispatch<React.SetStateAction<File | undefined>>;
+	onUpload: Function;
 }
 
-export const UploadWidget = ({
-  file,
-  setFile,
-  onUpload
-}: IUploadWidget) => {
+export const UploadWidget = ({ file, setFile, onUpload }: IUploadWidget) => {
 	const theme = useTheme();
 
 	return (
@@ -182,7 +182,7 @@ export const UploadWidget = ({
 					backgroundColor: theme.palette.grey[900]
 				}}
 				disabled={file === undefined}
-        onClick={() => onUpload()}
+				onClick={() => onUpload()}
 			>
 				Upload
 			</Button>

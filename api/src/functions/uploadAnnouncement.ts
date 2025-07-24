@@ -31,16 +31,17 @@ export async function uploadAnnouncement(
 		);
 		context.debug("Retrieved containerClient");
 
-		if (await containerClient.getBlobClient(name).exists()) {
-			name = `${Date.now().toString}_${name}`;
-		}
+		// if (await containerClient.getBlobClient(name).exists()) {
+		// 	name = `${Date.now().toString}_${name}`;
+		// }
 
-		// const blockBlobClient = containerClient.getBlockBlobClient(name);
-		// context.debug("Retrieved blockBlobClient");
+		context.debug("Retrieving blockBlobClient");
+		const blockBlobClient = containerClient.getBlockBlobClient(name);
+		context.debug("Retrieved blockBlobClient");
 
-		// result = blockBlobClient.uploadData(image);
+		result = blockBlobClient.uploadData(image);
 
-		result = await containerClient.uploadBlockBlob(name, image, image.size);
+		// result = await containerClient.uploadBlockBlob(name, image, image.size);
 		context.debug(result);
 		status = 200;
 	} catch (error) {

@@ -4,6 +4,7 @@ import {
 	HttpResponseInit,
 	InvocationContext
 } from '@azure/functions';
+import { DefaultAzureCredential } from '@azure/identity';
 import { BlobServiceClient } from '@azure/storage-blob';
 import { File } from 'node:buffer';
 
@@ -22,7 +23,8 @@ export async function uploadAnnouncement(
 		context.debug(name);
 
 		const blobServiceClient = new BlobServiceClient(
-			`https://lanromstorage.blob.core.windows.net`
+			`https://lanromstorage.blob.core.windows.net`,
+			new DefaultAzureCredential()
 		);
 
 		const containerName = 'announcements';

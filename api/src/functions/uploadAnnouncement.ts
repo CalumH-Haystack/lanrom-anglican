@@ -19,7 +19,7 @@ export async function uploadAnnouncement(
 		let image = formdata.get('image') as File;
 		let name = image.name;
 
-		context.debug(image);
+		context.debug(image.name);
 
 		const blobServiceClient = new BlobServiceClient(
 			`https://lanromstorage.blob.core.windows.net`
@@ -29,12 +29,14 @@ export async function uploadAnnouncement(
 		const containerClient = await blobServiceClient.getContainerClient(
 			containerName
 		);
+		context.debug("Retrieved containerClient");
 
 		if (await containerClient.getBlobClient(name).exists()) {
 			name = `${Date.now().toString}_${name}`;
 		}
 
 		const blockBlobClient = containerClient.getBlockBlobClient(name);
+		context.debug("Retrieved blockBlobClient");
 
 		result = blockBlobClient.uploadData(image);
 

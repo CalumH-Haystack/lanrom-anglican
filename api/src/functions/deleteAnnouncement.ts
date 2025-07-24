@@ -31,7 +31,7 @@ export async function deleteAnnouncement(
 		context.log(`result: ${JSON.stringify(result)}`);
 		status = 200;
 	} catch (error) {
-			context.log(`error: ${JSON.stringify(result)}`);
+			context.log(`error: ${error}`);
 			result = error;
 	}
 	context.log(`result: ${JSON.stringify(result)}`);

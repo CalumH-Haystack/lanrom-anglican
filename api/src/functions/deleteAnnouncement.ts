@@ -5,6 +5,7 @@ import {
 	InvocationContext
 } from '@azure/functions';
 import { BlobServiceClient } from '@azure/storage-blob';
+import { DefaultAzureCredential } from '@azure/identity';
 
 export async function deleteAnnouncement(
 	request: HttpRequest,
@@ -17,24 +18,22 @@ export async function deleteAnnouncement(
 
 	try {
 		const blobServiceClient = new BlobServiceClient(
-			`https://lanromstorage.blob.core.windows.net`
+			`https://lanromstorage.blob.core.windows.net`,
+			new DefaultAzureCredential()
 		);
-		context.log(`blobServiceClient: ${blobServiceClient}`);
 
 		const containerName = 'announcements';
 		const containerClient = await blobServiceClient.getContainerClient(
 			containerName
 		);
-		context.log(`containerClient: ${containerClient}`);
 
 		result = await containerClient.deleteBlob(blobName);
-		context.log(`result: ${result}`);
+		context.debug(`result: ${result}`);
 		status = 200;
 	} catch (error) {
-			context.log(`error: ${error}`);
+			context.error(`error: ${error}`);
 			result = error;
 	}
-	context.log(`result: ${JSON.stringify(result)}`);
 
 	return {
 		jsonBody: {

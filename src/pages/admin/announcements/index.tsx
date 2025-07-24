@@ -77,7 +77,7 @@ const ManageAnnouncements = () => {
 	const onUpload = async () => {
 		setShowUploadSpinner(true);
 		const formData = new FormData();
-		formData.append('image', file!.name);
+		formData.append('image', file!);
 		await axios
 			.post(process.env.GATSBY_AZ_UPDATE_ANNOUNCEMENT_URL ?? '', formData, {
 				headers: {

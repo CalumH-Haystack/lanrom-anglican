@@ -13,16 +13,19 @@ export async function deleteAnnouncement(
 	const blobName: string = request.params.blobName;
 	let result = {};
 	let status = 400;
+	context.log(`blobName: ${blobName}`);
 
 	try {
 		const blobServiceClient = new BlobServiceClient(
 			`https://lanromstorage.blob.core.windows.net`
 		);
+		context.log(`blobServiceClient: ${JSON.stringify(blobServiceClient)}`);
 
 		const containerName = 'announcements';
 		const containerClient = await blobServiceClient.getContainerClient(
 			containerName
 		);
+		context.log(`containerClient: ${JSON.stringify(containerClient)}`);
 
 		result = await containerClient.deleteBlob(blobName);
 		context.log(`result: ${JSON.stringify(result)}`);

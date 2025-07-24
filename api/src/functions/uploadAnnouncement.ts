@@ -39,7 +39,7 @@ export async function uploadAnnouncement(
 		const blockBlobClient = containerClient.getBlockBlobClient(name);
 		context.debug("Retrieved blockBlobClient");
 
-		result = blockBlobClient.uploadData(await image.arrayBuffer());
+		result = await blockBlobClient.uploadData(await image.arrayBuffer());
 
 		// result = await containerClient.uploadBlockBlob(name, image, image.size);
 		context.debug(result);

@@ -30,11 +30,9 @@ export async function deleteAnnouncement(
 		result = await containerClient.deleteBlob(blobName);
 		context.log(`result: ${JSON.stringify(result)}`);
 		status = 200;
-	} catch {
-		e => {
+	} catch (error) {
 			context.log(`error: ${JSON.stringify(result)}`);
-			result = e;
-		};
+			result = error;
 	}
 	context.log(`result: ${JSON.stringify(result)}`);
 

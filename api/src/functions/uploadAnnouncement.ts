@@ -29,18 +29,16 @@ export async function uploadAnnouncement(
 		);
 
 		if (await containerClient.getBlobClient(name).exists()) {
-			`${Date.now().toString}_${name}`;
+			name = `${Date.now().toString}_${name}`;
 		}
 
 		result = await containerClient.uploadBlockBlob(name, image, image.size);
-		context.log(result);
+		context.debug(result);
 		status = 200;
-	} catch {
-		e => {
-			context.error(e);
-			
-			result = e;
-		};
+	} catch (error) {
+		context.error(error);
+
+		result = error;
 	}
 
 	return {

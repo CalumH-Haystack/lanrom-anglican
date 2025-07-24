@@ -19,6 +19,8 @@ export async function uploadAnnouncement(
 		let image = formdata.get('image') as File;
 		let name = image.name;
 
+		context.debug(image);
+
 		const blobServiceClient = new BlobServiceClient(
 			`https://lanromstorage.blob.core.windows.net`
 		);
@@ -32,7 +34,11 @@ export async function uploadAnnouncement(
 			name = `${Date.now().toString}_${name}`;
 		}
 
-		result = await containerClient.uploadBlockBlob(name, image, image.size);
+		const blockBlobClient = containerClient.getBlockBlobClient(name);
+
+		result = blockBlobClient.uploadData(image);
+
+		// result = await containerClient.uploadBlockBlob(name, image, image.size);
 		context.debug(result);
 		status = 200;
 	} catch (error) {

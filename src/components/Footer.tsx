@@ -7,7 +7,7 @@ import {
 	useMediaQuery,
 	useTheme
 } from '@mui/material';
-import { Facebook } from '@mui/icons-material';
+import { Facebook, Instagram } from '@mui/icons-material';
 
 const FooterText = styled(Typography)(({ theme }) => ({
 	margin: useMediaQuery(theme.breakpoints.up('md')) ? '0px 16px' : '2px 0 2px',
@@ -32,7 +32,7 @@ export default function Footer() {
 				justifyContent: 'center',
 				alignItems: {
 					xs: 'start',
-					lg: 'center',
+					lg: 'center'
 				},
 				paddingX: '16px',
 				paddingY: {
@@ -42,19 +42,61 @@ export default function Footer() {
 				backgroundColor: '#303030'
 			}}
 		>
-			<Link
-				href='https://www.facebook.com/LancefieldRomseyAnglican'
-				target='_blank'
+			<Box
+				sx={{
+					display: 'flex',
+					flexDirection: 'row'
+				}}
 			>
-				<Facebook
+				<Link
+					href='https://www.facebook.com/LancefieldRomseyAnglican'
+					target='_blank'
+					marginRight='8px'
+				>
+					<Facebook
+						sx={{
+							color: 'white',
+							display: 'flex',
+							fontSize: { xs: '2em', sm: '1em' }
+						}}
+					/>
+				</Link>
+				<Link href='https://www.instagram.com/p/DHkTc2yyKsT/' target='_blank'>
+					<Instagram
+						sx={{
+							color: 'white',
+							display: 'flex',
+							fontSize: { xs: '2em', sm: '1em' }
+						}}
+					/>
+				</Link>
+			</Box>
+			<Link
+				href='/Privacy-policy-lanrom.pdf'
+				target='_blank'
+				sx={{
+					textDecoration: 'none'
+				}}
+			>
+				<FooterText
+					variant='subtitle1'
 					sx={{
-						color: 'white',
-						display: 'flex',
-						fontSize: { xs: '2em', sm: '1em' },
+						textDecoration: 'none',
+						textDecorationColor: 'white',
+						'&:hover, &:active': {
+							textDecoration: 'underline'
+						}
 					}}
-				/>
+				>
+					Privacy Policy
+				</FooterText>
 			</Link>
-			<FooterText variant='subtitle1'>
+			<FooterText
+				variant='subtitle1'
+				sx={{
+					margin: 0
+				}}
+			>
 				© 2025 Romsey Lancefield Anglican
 			</FooterText>
 		</Box>

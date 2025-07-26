@@ -27,6 +27,11 @@ export async function deleteAnnouncement(
 			containerName
 		);
 
+		if(!await containerClient.getBlobClient(blobName).exists()) {
+			status = 404;
+			throw new Error("Image does not exist in container");
+		}
+
 		result = await containerClient.deleteBlob(blobName);
 		context.debug(`result: ${result}`);
 		status = 200;
@@ -45,6 +50,6 @@ export async function deleteAnnouncement(
 
 app.http('deleteAnnouncement', {
 	methods: ['DELETE'],
-	authLevel: 'anonymous',
+	authLevel: 'function',
 	handler: deleteAnnouncement
 });

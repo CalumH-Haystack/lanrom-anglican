@@ -53,6 +53,9 @@ const ManageAnnouncements = () => {
 			.delete(process.env.GATSBY_AZ_DELETE_ANNOUNCEMENT_URL ?? '', {
 				data: {
 					blobName: name
+				},
+				headers: {
+					'x-functions-key': process.env.GATSBY_AZ_API_KEY
 				}
 			})
 			.then(res => {
@@ -81,6 +84,7 @@ const ManageAnnouncements = () => {
 		await axios
 			.post(process.env.GATSBY_AZ_UPDATE_ANNOUNCEMENT_URL ?? '', formData, {
 				headers: {
+					'x-functions-key': process.env.GATSBY_AZ_API_KEY,
 					'Content-Type': 'multipart/form-data'
 				}
 			})

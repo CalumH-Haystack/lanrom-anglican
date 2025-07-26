@@ -17,7 +17,11 @@ export async function uploadAnnouncement(
 
 	try {
 		var formdata = await request.formData();
-		let image = formdata.get('image') as File;
+		let image: File = formdata.get('image') as File;
+		if(!image?.type?.includes("image/")) {
+			status = 400;
+			throw new Error('File invalid');
+		}
 		let name = image.name;
 
 		context.debug(name);
@@ -62,6 +66,6 @@ export async function uploadAnnouncement(
 
 app.http('uploadAnnouncement', {
 	methods: ['POST'],
-	authLevel: 'anonymous',
+	authLevel: 'function',
 	handler: uploadAnnouncement
 });

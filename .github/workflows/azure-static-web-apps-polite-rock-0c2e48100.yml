@@ -24,6 +24,7 @@ env:
   GATSBY_AZ_SERMONS_URL: ${{ secrets.REACT_APP_AZ_SERMONS_URL }}
   GATSBY_AZ_CONTACT_URL: ${{ secrets.REACT_APP_AZ_CONTACT_URL }}
   GATSBY_AZ_LUNCH_URL: ${{ secrets.REACT_APP_AZ_LUNCH_URL }}
+  GATSBY_AZ_API_KEY: ${{ secrets.REACT_APP_AZ_API_KEY }}
 
 jobs:
   build_and_deploy_job:

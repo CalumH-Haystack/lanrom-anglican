@@ -4,6 +4,11 @@ import {
 	Box,
 	Button,
 	Collapse,
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogContentText,
+	DialogTitle,
 	IconButton,
 	ImageList,
 	ImageListItem,
@@ -76,7 +81,7 @@ export const Notification = ({ data, setData }: INotification) => (
 
 interface IAnnouncementsList {
 	imageUrls: Array<string>;
-	onDelete: Function;
+	onDelete:  (name: string) => Promise<void>;
 }
 
 export const AnnouncementsList = ({
@@ -85,35 +90,51 @@ export const AnnouncementsList = ({
 }: IAnnouncementsList) => {
 	const theme = useTheme();
 	const isMobileView = useMediaQuery(theme.breakpoints.down('md'));
+	const [showDeleteDialog, setShowDeleteDialog] =
+		React.useState<boolean>(false);
+	const [selectedFile, setSelectedFile] = React.useState<string>('');
+
+	const onClick = (fileName: string) => {
+		setSelectedFile(fileName);
+		setShowDeleteDialog(true);
+	}
 
 	return (
-		<ImageList cols={isMobileView ? 1 : 2}>
-			{imageUrls.map((url, index) => {
-				const title = url.split('announcements/')[1];
-				return (
-					<ImageListItem key={`${url}-${index}`}>
-						<img
-							srcSet={`${url}?w=248&fit=crop&auto=format&dpr=2 2x`}
-							src={`${url}?w=248&fit=crop&auto=format`}
-							alt={title}
-							loading='lazy'
-						/>
-						<ImageListItemBar
-							title={title}
-							actionIcon={
-								<IconButton
-									sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
-									aria-label={`delete ${title}`}
-									onClick={() => onDelete(title)}
-								>
-									<DeleteIcon />
-								</IconButton>
-							}
-						/>
-					</ImageListItem>
-				);
-			})}
-		</ImageList>
+		<>
+			<DeleteDialog
+				isOpen={showDeleteDialog}
+				setIsOpen={setShowDeleteDialog}
+				fileName={selectedFile}
+				onConfirm={onDelete}
+			/>
+			<ImageList cols={isMobileView ? 1 : 2}>
+				{imageUrls.map((url, index) => {
+					const title = url.split('announcements/')[1];
+					return (
+						<ImageListItem key={`${url}-${index}`}>
+							<img
+								srcSet={`${url}?w=248&fit=crop&auto=format&dpr=2 2x`}
+								src={`${url}?w=248&fit=crop&auto=format`}
+								alt={title}
+								loading='lazy'
+							/>
+							<ImageListItemBar
+								title={title}
+								actionIcon={
+									<IconButton
+										sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
+										aria-label={`delete ${title}`}
+										onClick={() => onClick(title)}
+									>
+										<DeleteIcon />
+									</IconButton>
+								}
+							/>
+						</ImageListItem>
+					);
+				})}
+			</ImageList>
+		</>
 	);
 };
 
@@ -187,5 +208,45 @@ export const UploadWidget = ({ file, setFile, onUpload }: IUploadWidget) => {
 				Upload
 			</Button>
 		</Box>
+	);
+};
+
+interface IDeleteDialog {
+	isOpen: boolean;
+	setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+	fileName: string;
+	onConfirm: (name: string) => Promise<void>;
+}
+
+export const DeleteDialog = ({
+	isOpen,
+	setIsOpen,
+	fileName,
+	onConfirm
+}: IDeleteDialog) => {
+	const handleClose = () => setIsOpen(false);
+
+	return (
+		<Dialog open={isOpen} onClose={handleClose}>
+			<DialogTitle>{'Delete Image?'}</DialogTitle>
+			<DialogContent>
+				<DialogContentText>
+					Are you sure you want to delete "{fileName}" and remove it from the
+					announcements carousel?
+				</DialogContentText>
+			</DialogContent>
+			<DialogActions>
+				<Button onClick={handleClose}>No</Button>
+				<Button
+					onClick={() => {
+						onConfirm(fileName);
+						handleClose();
+					}}
+					autoFocus
+				>
+					Yes
+				</Button>
+			</DialogActions>
+		</Dialog>
 	);
 };

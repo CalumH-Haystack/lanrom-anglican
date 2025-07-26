@@ -24,7 +24,6 @@ export async function announcements(
 
 		for await (const blob of containerClient.listBlobsFlat()) {
 			// blob
-			console.log('\t', blob.name);
 
 			// Get Blob Client from name, to get the URL
 			const tempBlockBlobClient = containerClient.getBlockBlobClient(blob.name);

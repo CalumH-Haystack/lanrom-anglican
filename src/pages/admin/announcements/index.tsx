@@ -40,7 +40,6 @@ const ManageAnnouncements = () => {
 			.get(process.env.GATSBY_AZ_ANNOUNCEMENTS_URL ?? '')
 			.then(res => {
 				const urls: Array<string> = res.data?.urls ?? [];
-				console.log(urls);
 
 				setImageUrls(urls);
 			})

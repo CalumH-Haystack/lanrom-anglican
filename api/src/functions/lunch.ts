@@ -16,19 +16,19 @@ export async function lunch(
 
 	const { MailtrapClient } = require('mailtrap');
 
-	const TOKEN = process.env["MAILTRAP_TOKEN"];
-	const ENDPOINT = process.env["MAILTRAP_ENDPOINT"];
+	const TOKEN = process.env['MAILTRAP_TOKEN'];
+	const ENDPOINT = process.env['MAILTRAP_ENDPOINT'];
 
 	const client = new MailtrapClient({ endpoint: ENDPOINT, token: TOKEN });
 
 	const sender = {
-		email: process.env["MAILTRAP_SENDER_EMAIL"],
-		name: process.env["MAILTRAP_SENDER_NAME"]
+		email: process.env['MAILTRAP_SENDER_EMAIL'],
+		name: process.env['MAILTRAP_SENDER_NAME']
 	};
 
 	const recipients = [
 		{
-			email: process.env["ORG_EMAIL"]
+			email: process.env['ORG_EMAIL']
 		},
 		// Remove second email when testing in local
 		{
@@ -37,19 +37,17 @@ export async function lunch(
 	];
 
 	try {
-		const response = await client
-			.send({
-				from: sender,
-				to: recipients,
-				template_uuid: process.env["MAILTRAP_LUNCH_TEMPLATE_UUID"],
-				template_variables: {
-					firstName: firstName,
-					lastName: lastName,
-					email: email,
-					howMany: howMany,
-				}
-			})
-			console.log('Response: ', response);
+		const response = await client.send({
+			from: sender,
+			to: recipients,
+			template_uuid: process.env['MAILTRAP_LUNCH_TEMPLATE_UUID'],
+			template_variables: {
+				firstName: firstName,
+				lastName: lastName,
+				email: email,
+				howMany: howMany
+			}
+		});
 
 		return { body: response.statusText, status: response.status };
 	} catch (e) {

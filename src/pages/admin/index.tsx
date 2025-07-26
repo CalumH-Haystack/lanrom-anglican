@@ -12,7 +12,6 @@ const Admin = () => {
 		const response = await fetch('/.auth/me');
 		const payload = await response.json();
 		const { clientPrincipal } = payload;
-		console.log('calum', clientPrincipal);
 		if (clientPrincipal && clientPrincipal.userDetails) {
 			setUserName(clientPrincipal.userDetails);
 		}

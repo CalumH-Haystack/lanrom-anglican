@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Carousel from 'react-material-ui-carousel';
 import { Paper, useTheme } from '@mui/material';
 import axios from 'axios';
-import { GatsbyImage } from "gatsby-plugin-image"
+import { GatsbyImage } from 'gatsby-plugin-image';
 
 export const EventCarousel = () => {
 	const [imageUrls, setImageUrls] = useState(new Array<string>());
@@ -12,11 +12,10 @@ export const EventCarousel = () => {
 			.get(process.env.GATSBY_AZ_ANNOUNCEMENTS_URL ?? '')
 			.then(res => {
 				const urls: Array<string> = res.data?.urls ?? [];
-				console.log(urls);
 
 				setImageUrls(urls);
 			})
-			.catch((e) => console.error(e));
+			.catch(e => console.error(e));
 	};
 
 	useEffect(() => {
@@ -45,16 +44,19 @@ export const EventCarousel = () => {
 							}}
 							elevation={0}
 						>
-							<GatsbyImage alt={`Carousel Image No. ${index + 1}`} image={{
-								layout: 'fullWidth',
-								width: 16,
-								height: 9,
-								images: {
-									fallback: {
-										src: imgUrl
+							<GatsbyImage
+								alt={`Carousel Image No. ${index + 1}`}
+								image={{
+									layout: 'fullWidth',
+									width: 16,
+									height: 9,
+									images: {
+										fallback: {
+											src: imgUrl
+										}
 									}
-								}
-							}} />
+								}}
+							/>
 						</Paper>
 					);
 				})}

@@ -42,7 +42,6 @@ export async function sermons(
 				series: properties.metadata.series,
 				date: properties.metadata.date
 			};
-			console.log(sermon);
 
 			// Push newly created sermon object
 			sermons.push(sermon);

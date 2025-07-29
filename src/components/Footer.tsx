@@ -8,9 +8,10 @@ import {
 	useTheme
 } from '@mui/material';
 import { Facebook, Instagram } from '@mui/icons-material';
+import { StaticImage } from 'gatsby-plugin-image';
 
 const FooterText = styled(Typography)(({ theme }) => ({
-	margin: useMediaQuery(theme.breakpoints.up('md')) ? '0px 16px' : '2px 0 2px',
+	margin: useMediaQuery(theme.breakpoints.up('md')) ? '0px 24px' : '2px 0 2px',
 	textAlign: useMediaQuery(theme.breakpoints.up('md')) ? 'center' : 'start',
 	alignSelf: useMediaQuery(theme.breakpoints.up('md')) ? 'center' : 'auto'
 }));
@@ -99,6 +100,37 @@ export default function Footer() {
 			>
 				© 2025 Romsey Lancefield Anglican
 			</FooterText>
+			<Link
+				href='https://www.haystackdev.au/'
+				target='_blank'
+				sx={{
+					margin: useMediaQuery(theme.breakpoints.up('md'))
+						? '0px 24px'
+						: '4px 0'
+				}}
+			>
+				{useMediaQuery(theme.breakpoints.up('md')) ? (
+					<StaticImage
+						src='../images/madeByHaystackWhite.png'
+						alt='Made by Haystack Web & Mobile Apps'
+						placeholder='blurred'
+						height={24}
+						style={{
+							display: 'flex'
+						}}
+					/>
+				) : (
+					<StaticImage
+						src='../images/madeByHaystackWhite.png'
+						alt='Made by Haystack Web & Mobile Apps'
+						placeholder='blurred'
+						height={40}
+						style={{
+							display: 'flex'
+						}}
+					/>
+				)}
+			</Link>
 		</Box>
 	);
 }

@@ -7,10 +7,8 @@ import axios from 'axios';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {
 	AnnouncementsList,
-	INotificationState,
-	Notification,
-	UploadWidget
 } from '../../../components/Admin/Announcements/components';
+import { INotificationState, Notification, UploadWidget } from '../../../components/Admin/common';
 
 const ManageAnnouncements = () => {
 	const theme = useTheme();

@@ -11,6 +11,7 @@ export async function announcements(
 	context: InvocationContext
 ): Promise<HttpResponseInit> {
 	const urls: Array<string> = [];
+	let status = 400;
 
 	try {
 		const blobServiceClient = new BlobServiceClient(
@@ -25,22 +26,25 @@ export async function announcements(
 		for await (const blob of containerClient.listBlobsFlat()) {
 			// blob
 
-			// Get Blob Client from name, to get the URL
-			const tempBlockBlobClient = containerClient.getBlockBlobClient(blob.name);
+			// // Get Blob Client from name, to get the URL
+			// const tempBlockBlobClient = containerClient.getBlockBlobClient(blob.name);
 
-			// Push blob URL
-			urls.push(tempBlockBlobClient.url);
+			// // Push blob URL
+			// urls.push(tempBlockBlobClient.url);
+
+			urls.push(`${containerClient.url}/${blob.name}`);
 		}
-	} catch {
-		e => {
-			context.log(e);
-		};
+
+		status = 200;
+	} catch (error) {
+			context.error(error);
 	}
 
 	return {
 		jsonBody: {
 			urls
-		}
+		},
+		status
 	};
 }
 

@@ -2,7 +2,7 @@ import * as React from 'react';
 import App from '../../components/App/App';
 import { HeadFC, navigate } from 'gatsby';
 import { Heading, Paragraph } from '../../utils';
-import { Box, Button, useTheme } from '@mui/material';
+import { Box, Button, Link, useTheme } from '@mui/material';
 
 const Admin = () => {
 	const theme = useTheme();
@@ -25,18 +25,20 @@ const Admin = () => {
 		<App>
 			<Heading variant='h1'>Welcome, {userName}</Heading>
 			<Paragraph>
-				Use this admin area to manage the announcements carousel on the homepage, or
-				to upload and manage sermons.
+				Use this admin area to manage the announcements carousel on the
+				homepage, or to upload and manage sermons.
 			</Paragraph>
-			<Box sx={{
-				display: 'flex',
-				flexDirection: {
-					xs: 'column',
-					md: 'row'
-				},
-				width: '100%',
-				alignContent: 'space-around'
-			}}>
+			<Box
+				sx={{
+					display: 'flex',
+					flexDirection: {
+						xs: 'column',
+						md: 'row'
+					},
+					width: '100%',
+					alignContent: 'space-around'
+				}}
+			>
 				<Button
 					variant='contained'
 					sx={{
@@ -61,6 +63,9 @@ const Admin = () => {
 					Manage Sermons
 				</Button>
 			</Box>
+			<Link href='/logout'>
+					Log Out
+			</Link>
 		</App>
 	);
 };

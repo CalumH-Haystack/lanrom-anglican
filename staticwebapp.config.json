@@ -1,21 +1,25 @@
 {
-  "navigationFallback": {
-    "rewrite": "/index.html"
-  },
-  "routes": [
-    {
-    "route": "/admin/*",
-      "allowedRoles": [ "admin"]
-    }
-  ],
-  "responseOverrides": {
-    "401": {
-      "statusCode": 302,
-      "redirect": "/.auth/login/aad"
-    },
-    "403": {
-      "statusCode": 302,
-      "redirect": "/unauthorised"
-    }
-  }
+	"navigationFallback": {
+		"rewrite": "/index.html"
+	},
+	"routes": [
+		{
+			"route": "/admin/*",
+			"allowedRoles": ["admin"]
+		},
+		{
+			"route": "/logout",
+			"redirect": "/.auth/logout"
+		}
+	],
+	"responseOverrides": {
+		"401": {
+			"statusCode": 302,
+			"redirect": "/.auth/login/aad?post_login_redirect_uri=.referrer"
+		},
+		"403": {
+			"statusCode": 302,
+			"redirect": "/unauthorised"
+		}
+	}
 }

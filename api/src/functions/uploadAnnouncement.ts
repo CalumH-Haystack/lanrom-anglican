@@ -46,8 +46,6 @@ export async function uploadAnnouncement(
 		context.debug("Retrieved blockBlobClient");
 
 		result = await blockBlobClient.uploadData(await image.arrayBuffer());
-
-		// result = await containerClient.uploadBlockBlob(name, image, image.size);
 		context.debug(result);
 		status = 200;
 	} catch (error) {

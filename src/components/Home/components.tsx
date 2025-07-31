@@ -20,7 +20,8 @@ export const LogoAndMission = () => {
 				flexDirection: 'column',
 				justifyContent: 'center',
 				alignContent: 'center',
-				alignItems: 'center'
+				alignItems: 'center',
+				margin: '32px auto'
 			}}
 		>
 			<Box
@@ -41,8 +42,8 @@ export const LogoAndMission = () => {
 					sx={{
 						flex: 2,
 						margin: {
-							xs: '0 0 32px 0',
-							md: '0 32px 0 0'
+							xs: '0 0 24px 0',
+							md: '0 24px 0 0'
 						}
 					}}
 				>

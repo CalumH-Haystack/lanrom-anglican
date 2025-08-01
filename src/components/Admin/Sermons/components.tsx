@@ -1,34 +1,16 @@
 import * as React from 'react';
 import {
-	Alert,
 	Box,
 	Button,
 	CircularProgress,
-	Collapse,
-	Dialog,
-	DialogActions,
-	DialogContent,
-	DialogContentText,
-	DialogTitle,
 	FormControl,
 	IconButton,
-	ImageList,
-	ImageListItem,
-	ImageListItemBar,
 	InputLabel,
 	MenuItem,
 	OutlinedSelectProps,
 	Select,
-	styled,
 	TextField,
-	Typography,
-	useMediaQuery,
-	useTheme
-} from '@mui/material';
-import { Paragraph } from '../../../utils';
-import CloseIcon from '@mui/icons-material/Close';
-import DeleteIcon from '@mui/icons-material/Delete';
-import FolderIcon from '@mui/icons-material/Folder';
+	Typography} from '@mui/material';
 import { BOX_SHADOW } from '../../../theme/palette';
 import { StaticImage } from 'gatsby-plugin-image';
 import { useState } from 'react';
@@ -95,20 +77,9 @@ const EditSermonListItem = ({
 	const [showDeleteDialog, setShowDeleteDialog] =
 		React.useState<boolean>(false);
 	const [showEditDialog, setShowEditDialog] = React.useState<boolean>(false);
-	const [selectedFile, setSelectedFile] = React.useState<string>('');
 
-	const fileName = sermon.url.split('/').pop();
+	const fileName = sermon.url.split('/').pop()!;
 	const title = sermon.name ?? fileName?.slice(-10);
-
-	const onClickDelete = (url: string) => {
-		setSelectedFile(url);
-		setShowDeleteDialog(true);
-	};
-
-	const onClickEdit = (url: string) => {
-		setSelectedFile(url);
-		setShowEditDialog(true);
-	};
 
 	return (
 		<Box
@@ -126,7 +97,7 @@ const EditSermonListItem = ({
 			<DeleteDialog
 				isOpen={showDeleteDialog}
 				setIsOpen={setShowDeleteDialog}
-				fileName={selectedFile}
+				fileName={fileName}
 				onConfirm={onDelete}
 			/>
 			<EditDialog
@@ -147,6 +118,9 @@ const EditSermonListItem = ({
 				</Typography>
 				<Typography variant='subtitle2' textAlign='start'>
 					{sermon.author} - {sermon.date}
+				</Typography>
+				<Typography variant='subtitle2' textAlign='start'>
+					{fileName}
 				</Typography>
 			</Box>
 			<Box
@@ -179,7 +153,7 @@ const EditSermonListItem = ({
 				>
 					<IconButton
 						aria-label='Delete'
-						onClick={() => onClickDelete(sermon.url)}
+						onClick={() => setShowDeleteDialog(true)}
 					>
 						<Delete
 							sx={{
@@ -277,7 +251,7 @@ export const SermonEditList = ({
 		formData.append('date', date);
 		formData.append('url', url);
 		await axios
-			.post(process.env.GATSBY_AZ_UPLOAD_SERMON_URL ?? '', formData, {
+			.post(process.env.GATSBY_AZ_UPDATE_SERMON_URL ?? '', formData, {
 				headers: {
 					'x-functions-key': process.env.GATSBY_AZ_API_KEY,
 					'Content-Type': 'multipart/form-data'
@@ -302,7 +276,10 @@ export const SermonEditList = ({
 		setIsLoading(false);
 	};
 
-	const onUpload = async ({ name, author, series, date }: ISermonData, file: File) => {
+	const onUpload = async (
+		{ name, author, series, date }: ISermonData,
+		file: File
+	) => {
 		setIsLoading(true);
 		const formData = new FormData();
 		formData.append('audio', file!);
@@ -311,7 +288,7 @@ export const SermonEditList = ({
 		formData.append('series', series);
 		formData.append('date', date);
 		await axios
-			.post(process.env.GATSBY_AZ_UPLOAD_SERMON_URL ?? '', formData, {
+			.post(process.env.GATSBY_AZ_UPLOAD_SERMON_URL!, formData, {
 				headers: {
 					'x-functions-key': process.env.GATSBY_AZ_API_KEY,
 					'Content-Type': 'multipart/form-data'
@@ -478,6 +455,9 @@ export const SermonEditList = ({
 					})}
 				</Box>
 			</Box>
+			<Button variant='contained' onClick={() => setShowUploadDialog(true)}>
+				Upload Sermon
+			</Button>
 		</>
 	);
 };

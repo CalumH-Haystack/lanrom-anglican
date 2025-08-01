@@ -53,12 +53,6 @@ const ManageSermons = () => {
 				isLoading={isLoading}
 				setIsLoading={setIsLoading}
 			/>
-			<Heading variant='h2'>Upload Announcement Image</Heading>
-			{showUploadSpinner && <CircularProgress />}
-			<Notification data={uploadNotif} setData={setUploadNotif} />
-			<Button>
-				Upload Sermon
-			</Button>
 			<Button
 				sx={{
 					marginTop: '64px',

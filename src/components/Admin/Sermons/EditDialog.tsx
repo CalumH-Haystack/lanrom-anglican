@@ -70,7 +70,6 @@ export const EditDialog = ({
 						variant='standard'
 					/>
 					<TextField
-						autoFocus
 						required
 						margin='dense'
 						name='author'
@@ -82,7 +81,6 @@ export const EditDialog = ({
 						variant='standard'
 					/>
 					<TextField
-						autoFocus
 						required
 						margin='dense'
 						name='series'
@@ -94,7 +92,6 @@ export const EditDialog = ({
 						variant='standard'
 					/>
 					<TextField
-						autoFocus
 						required
 						margin='dense'
 						name='date'

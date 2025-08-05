@@ -52,9 +52,10 @@ export const UploadDialog = ({
 		series: ''
 	});
 
-	const onSubmit = () => {
+	const onSubmit = (event: React.FormEvent) => {
+		event.preventDefault();
 		handleClose();
-		// onConfirm(updateData, file);
+		onConfirm(updateData, file!);
 	};
 
 	const onChange = (
@@ -111,11 +112,16 @@ export const UploadDialog = ({
 						margin='dense'
 						name='date'
 						label='Date'
-						type='text'
+						type='date'
 						value={updateData.date}
 						onChange={onChange}
 						fullWidth
 						variant='standard'
+						slotProps={{
+							inputLabel: {
+								shrink: true
+							}
+						}}
 					/>
 					<Box
 						sx={{
@@ -164,7 +170,9 @@ export const UploadDialog = ({
 					</Box>
 					<DialogActions>
 						<Button onClick={handleClose}>Cancel</Button>
-						<Button type='submit' disabled={!(file instanceof File)}>Upload</Button>
+						<Button type='submit' disabled={!(file instanceof File)}>
+							Upload
+						</Button>
 					</DialogActions>
 				</form>
 			</DialogContent>

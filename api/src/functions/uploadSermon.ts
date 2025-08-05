@@ -5,7 +5,7 @@ import {
 	InvocationContext
 } from '@azure/functions';
 import { DefaultAzureCredential } from '@azure/identity';
-import { BlobServiceClient } from '@azure/storage-blob';
+import { BlobServiceClient, BlockBlobParallelUploadOptions } from '@azure/storage-blob';
 import { File } from 'node:buffer';
 
 export async function uploadSermon(
@@ -17,7 +17,15 @@ export async function uploadSermon(
 
 	try {
 		var formdata = await request.formData();
-		let audio: File = formdata.get('audio') as File;
+		const audio: File = formdata.get('audio') as File;
+		const title = formdata.get('name') as string;
+		const author = formdata.get('author') as string;
+		const series = formdata.get('series') as string;
+		const date = formdata.get('date') as string;
+		if(!date.match(/^\d{4}-\d{2}-\d{2}$/)) {
+			status = 400;
+			throw new Error('Date invalid');
+		}
 		if(!audio?.type?.includes("audio/")) {
 			status = 400;
 			throw new Error('File invalid');
@@ -37,15 +45,24 @@ export async function uploadSermon(
 		);
 		context.debug("Retrieved containerClient");
 
-		// if (await containerClient.getBlobClient(name).exists()) {
-		// 	name = `${Date.now().toString}_${name}`;
-		// }
+		if (await containerClient.getBlobClient(name).exists()) {
+			name = `${Date.now().toString}_${name}`;
+		}
 
 		context.debug("Retrieving blockBlobClient");
 		const blockBlobClient = containerClient.getBlockBlobClient(name);
 		context.debug("Retrieved blockBlobClient");
 
-		result = await blockBlobClient.uploadData(await audio.arrayBuffer());
+		const uploadOptions: BlockBlobParallelUploadOptions = {
+			metadata: {
+				name: title,
+				author,
+				series,
+				date
+			}
+		};
+
+		result = await blockBlobClient.uploadData(await audio.arrayBuffer(), uploadOptions);
 		context.debug(result);
 		status = 200;
 	} catch (error) {

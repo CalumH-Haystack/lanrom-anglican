@@ -122,7 +122,7 @@ const ManageAnnouncements = () => {
 			<Heading variant='h2'>Upload Announcement Image</Heading>
 			{showUploadSpinner && <CircularProgress />}
 			<Notification data={uploadNotif} setData={setUploadNotif} />
-			<UploadWidget file={file} setFile={setFile} onUpload={onUpload}/>
+			<UploadWidget file={file} setFile={setFile} onUpload={onUpload} accept='image/*'/>
 			<Button
 				sx={{
 					marginTop: '64px',

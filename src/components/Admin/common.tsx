@@ -18,7 +18,7 @@ import { Paragraph } from '../../utils';
 import CloseIcon from '@mui/icons-material/Close';
 import FolderIcon from '@mui/icons-material/Folder';
 
-const VisuallyHiddenInput = styled('input')({
+export const VisuallyHiddenInput = styled('input')({
 	clip: 'rect(0 0 0 0)',
 	clipPath: 'inset(50%)',
 	height: 1,
@@ -78,9 +78,10 @@ interface IUploadWidget {
 	file: File | undefined;
 	setFile: React.Dispatch<React.SetStateAction<File | undefined>>;
 	onUpload: Function;
+  accept: string;
 }
 
-export const UploadWidget = ({ file, setFile, onUpload }: IUploadWidget) => {
+export const UploadWidget = ({ file, setFile, onUpload, accept }: IUploadWidget) => {
 	const theme = useTheme();
 
 	return (
@@ -125,7 +126,7 @@ export const UploadWidget = ({ file, setFile, onUpload }: IUploadWidget) => {
 				>
 					<VisuallyHiddenInput
 						type='file'
-						accept='image/*'
+						accept={accept}
 						onChange={(event: { target: HTMLInputElement }) =>
 							event.target.files && setFile(event.target.files[0])
 						}
@@ -164,11 +165,10 @@ export const DeleteDialog = ({
 
 	return (
 		<Dialog open={isOpen} onClose={handleClose}>
-			<DialogTitle>{'Delete Image?'}</DialogTitle>
+			<DialogTitle>{'Delete File?'}</DialogTitle>
 			<DialogContent>
 				<DialogContentText>
-					Are you sure you want to delete "{fileName}" and remove it from the
-					announcements carousel?
+					Are you sure you want to delete "{fileName}"?
 				</DialogContentText>
 			</DialogContent>
 			<DialogActions>

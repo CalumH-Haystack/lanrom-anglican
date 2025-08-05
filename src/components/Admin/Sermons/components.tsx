@@ -10,7 +10,8 @@ import {
 	OutlinedSelectProps,
 	Select,
 	TextField,
-	Typography} from '@mui/material';
+	Typography
+} from '@mui/material';
 import { BOX_SHADOW } from '../../../theme/palette';
 import { StaticImage } from 'gatsby-plugin-image';
 import { useState } from 'react';
@@ -197,7 +198,19 @@ export const SermonEditList = ({
 		await axios
 			.get(process.env.GATSBY_AZ_SERMONS_URL ?? '')
 			.then(res => {
-				const sermons: Array<ISermonData> = res.data?.sermons ?? [];
+				let sermons: Array<ISermonData> = res.data?.sermons ?? [];
+				sermons.forEach(sermon => {
+					if (sermon.date && sermon.date.match(/^\d{4}-\d{2}-\d{2}$/)) {
+						sermon.date = Intl.DateTimeFormat().format(new Date(sermon.date));
+					}
+				});
+				sermons.sort((sermon, next) => {
+					try {
+						return new Date(sermon.date).getTime() - new Date(next.date).getTime();
+					} catch {
+						return -1;
+					}
+				});
 
 				setSermons(sermons);
 			})
@@ -244,14 +257,15 @@ export const SermonEditList = ({
 
 	const onEdit = async ({ name, author, series, date, url }: ISermonData) => {
 		setIsLoading(true);
-		const formData = new FormData();
-		formData.append('name', name);
-		formData.append('author', author);
-		formData.append('series', series);
-		formData.append('date', date);
-		formData.append('url', url);
+		const body = {
+			name,
+			author,
+			series,
+			date,
+			fileName: url.split('sermons/')[1]
+		}
 		await axios
-			.post(process.env.GATSBY_AZ_UPDATE_SERMON_URL ?? '', formData, {
+			.put(process.env.GATSBY_AZ_UPDATE_SERMON_URL ?? '', body, {
 				headers: {
 					'x-functions-key': process.env.GATSBY_AZ_API_KEY,
 					'Content-Type': 'multipart/form-data'

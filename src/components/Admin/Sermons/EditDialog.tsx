@@ -37,7 +37,8 @@ export const EditDialog = ({
 
 	const [updateData, setUpdateData] = React.useState<ISermonData>(data);
 
-	const onSubmit = () => {
+	const onSubmit = (event: React.FormEvent) => {
+		event.preventDefault();
 		handleClose();
 		onConfirm(updateData);
 	};
@@ -96,11 +97,16 @@ export const EditDialog = ({
 						margin='dense'
 						name='date'
 						label='Date'
-						type='text'
+						type='date'
 						value={updateData.date}
 						onChange={onChange}
 						fullWidth
 						variant='standard'
+						slotProps={{
+							inputLabel: {
+								shrink: true
+							}
+						}}
 					/>
 					<DialogActions>
 						<Button onClick={handleClose}>Cancel</Button>

@@ -46,7 +46,7 @@ export async function uploadSermon(
 		context.debug("Retrieved containerClient");
 
 		if (await containerClient.getBlobClient(name).exists()) {
-			name = `${Date.now().toString}_${name}`;
+			name = `${Date.now().toString()}_${name}`;
 		}
 
 		context.debug("Retrieving blockBlobClient");

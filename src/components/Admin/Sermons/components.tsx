@@ -222,15 +222,12 @@ export const SermonEditList = ({
 		fetchSermons();
 	}, []);
 
-	const onDelete = async (url: string) => {
+	const onDelete = async (fileName: string) => {
 		setIsLoading(true);
-		const blobName = url.split(
-			'lanromstorage.blob.core.windows.net/sermons/'
-		)[1];
 		await axios
 			.delete(process.env.GATSBY_AZ_DELETE_SERMON_URL ?? '', {
 				data: {
-					blobName
+					blobName: fileName
 				},
 				headers: {
 					'x-functions-key': process.env.GATSBY_AZ_API_KEY
@@ -239,7 +236,7 @@ export const SermonEditList = ({
 			.then(res => {
 				setNotification({
 					isOpen: true,
-					message: `${url} has been deleted successfully`,
+					message: `${fileName} has been deleted successfully`,
 					severity: 'success'
 				});
 				fetchSermons();
@@ -248,7 +245,7 @@ export const SermonEditList = ({
 				console.error(e);
 				setNotification({
 					isOpen: true,
-					message: `There was an issue deleting ${url}`,
+					message: `There was an issue deleting ${fileName}`,
 					severity: 'error'
 				});
 			});
@@ -257,18 +254,18 @@ export const SermonEditList = ({
 
 	const onEdit = async ({ name, author, series, date, url }: ISermonData) => {
 		setIsLoading(true);
-		const body = {
+		const params = {
 			name,
 			author,
 			series,
 			date,
 			fileName: url.split('sermons/')[1]
 		}
+		console.log('calum date', date);
 		await axios
-			.put(process.env.GATSBY_AZ_UPDATE_SERMON_URL ?? '', body, {
+			.put(process.env.GATSBY_AZ_UPDATE_SERMON_URL ?? '', params, {
 				headers: {
-					'x-functions-key': process.env.GATSBY_AZ_API_KEY,
-					'Content-Type': 'multipart/form-data'
+					'x-functions-key': process.env.GATSBY_AZ_API_KEY
 				}
 			})
 			.then(res => {

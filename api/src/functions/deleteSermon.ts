@@ -14,9 +14,9 @@ export async function deleteSermon(
 	const blobName: string = request.params.blobName;
 	let result = {};
 	let status = 400;
-	context.log(`blobName: ${blobName}`);
+	context.debug(`blobName: ${blobName}`);
 
-	try {
+	try { 
 		const blobServiceClient = new BlobServiceClient(
 			`https://lanromstorage.blob.core.windows.net`,
 			new DefaultAzureCredential()

@@ -21,6 +21,8 @@ export async function editSermon(
 	const series = request.params.series;
 	const date = request.params.date;
 
+	context.debug(fileName, name, author, series, date);
+
 	try {
 
 		const blobServiceClient = new BlobServiceClient(

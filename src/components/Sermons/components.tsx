@@ -154,6 +154,18 @@ export const SermonPlayer = () => {
 			.get(process.env.GATSBY_AZ_SERMONS_URL ?? '')
 			.then(res => {
 				const sermons: Array<ISermonData> = res.data?.sermons ?? [];
+				sermons.forEach(sermon => {
+					if (sermon.date && sermon.date.match(/^\d{4}-\d{2}-\d{2}$/)) {
+						sermon.date = Intl.DateTimeFormat().format(new Date(sermon.date));
+					};
+				});
+				sermons.sort((sermon, next) => {
+					try {
+						return new Date(sermon.date).getTime() - new Date(next.date).getTime();
+					} catch {
+						return -1;
+					}
+				});
 
 				setSermons(sermons);
 			})

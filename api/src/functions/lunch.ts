@@ -1,3 +1,4 @@
+import { EmailClient, EmailMessage, KnownEmailSendStatus } from '@azure/communication-email';
 import {
 	app,
 	HttpRequest,
@@ -14,42 +15,69 @@ export async function lunch(
 	const email = request.params.email;
 	const howMany = request.params.howMany;
 
-	const { MailtrapClient } = require('mailtrap');
-
-	const TOKEN = process.env['MAILTRAP_TOKEN'];
-	const ENDPOINT = process.env['MAILTRAP_ENDPOINT'];
-
-	const client = new MailtrapClient({ endpoint: ENDPOINT, token: TOKEN });
-
-	const sender = {
-		email: process.env['MAILTRAP_SENDER_EMAIL'],
-		name: process.env['MAILTRAP_SENDER_NAME']
-	};
-
-	const recipients = [
-		{
-			email: process.env['ORG_EMAIL']
-		},
-		// Remove second email when testing in local
-		{
-			email: email
-		}
-	];
-
+	const POLLER_WAIT_TIME = 2;
 	try {
-		const response = await client.send({
-			from: sender,
-			to: recipients,
-			template_uuid: process.env['MAILTRAP_LUNCH_TEMPLATE_UUID'],
-			template_variables: {
-				firstName: firstName,
-				lastName: lastName,
-				email: email,
-				howMany: howMany
-			}
-		});
+		context.debug('Retrieving EmailClient');
 
-		return { body: response.statusText, status: response.status };
+		const azClient = new EmailClient(process.env['AZ_MAIL_CONNECTION_STRING']);
+
+		context.debug('Retrieved EmailClient');
+
+		const message: EmailMessage = {
+			senderAddress: email,
+			content: {
+				subject: `${firstName} ${lastName} Lunch RSVP`,
+				plainText: `${firstName} ${lastName} has just RSVP'd for ${howMany} people`
+			},
+			recipients: {
+				to: [
+					{
+						address: process.env['MAILTRAP_SENDER_EMAIL']
+					}
+				]
+			},
+			replyTo: [
+				{
+					address: email
+				}
+			]
+		};
+
+		context.debug('Beginning send');
+
+		const poller = await azClient.beginSend(message);
+
+		context.debug('Send begun');
+
+		if (!poller.getOperationState().isStarted) {
+			throw 'Poller was not started.';
+		}
+
+		context.debug('isStarted');
+
+		let timeElapsed = 0;
+		while (!poller.isDone()) {
+			poller.poll();
+			context.debug('Email send polling in progress');
+
+			await new Promise(resolve =>
+				setTimeout(resolve, POLLER_WAIT_TIME * 1000)
+			);
+			timeElapsed += 10;
+
+			if (timeElapsed > 6 * POLLER_WAIT_TIME) {
+				throw 'Polling timed out.';
+			}
+		}
+
+		if (poller.getResult().status === KnownEmailSendStatus.Succeeded) {
+			context.debug(
+				`Successfully sent the email (operation id: ${poller.getResult().id})`
+			);
+			return { body: poller.getResult().id, status: 200 };
+		} else {
+			throw poller.getResult().error;
+		}
 	} catch (e) {
 		context.error(e.message);
 		return { body: e.message, status: 500 };

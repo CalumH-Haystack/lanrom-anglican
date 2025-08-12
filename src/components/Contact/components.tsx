@@ -31,6 +31,7 @@ export const ContactForm = () => {
 	const [firstName, setFirstName] = useState(initData(useRef()));
 	const [lastName, setLastName] = useState(initData(useRef()));
 	const [subject, setSubject] = useState(initData(useRef()));
+	const [email, setEmail] = useState(initData(useRef()));
 	const [message, setMessage] = useState(initData(useRef()));
 	const [isNotRobot, setIsNotRobot] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
@@ -65,6 +66,7 @@ export const ContactForm = () => {
 				firstName: firstName.value,
 				lastName: lastName.value,
 				subject: subject.value,
+				email: email.value,
 				message: message.value
 			};
 			let response;
@@ -126,6 +128,14 @@ export const ContactForm = () => {
 							data={lastName}
 							setData={setLastName}
 							validation={VALIDATIONS[FIELD_NAMES.LAST_NAME]}
+						/>
+					</Section>
+					<Section>
+						<StyledTextInput
+							label={FIELD_NAMES.EMAIL}
+							data={email}
+							setData={setEmail}
+							validation={VALIDATIONS[FIELD_NAMES.EMAIL]}
 						/>
 					</Section>
 					<Section>

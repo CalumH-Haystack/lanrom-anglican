@@ -28,7 +28,7 @@ export const NAVBAR_ITEMS: INavBarItem[] = [
 				path: '/events/'
 			},
 			{
-				name: 'Community Lunch',
+				name: 'Parish Meal',
 				path: '/lunch/'
 			},
 			{

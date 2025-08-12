@@ -95,7 +95,7 @@ const LunchForm = () => {
 					marginBottom: '32px'
 				}}
 			>
-				Come to our next lunch
+				Come to our next meal
 			</Heading>
 			<Box
 				sx={{

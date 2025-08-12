@@ -92,6 +92,6 @@ export async function lunch(
 
 app.http('lunch', {
 	methods: ['POST'],
-	authLevel: 'function',
+	authLevel: 'anonymous',
 	handler: lunch
 });

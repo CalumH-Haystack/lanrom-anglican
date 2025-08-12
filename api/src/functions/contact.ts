@@ -93,6 +93,6 @@ export async function contact(
 
 app.http('contact', {
 	methods: ['POST'],
-	authLevel: 'function',
+	authLevel: 'anonymous',
 	handler: contact
 });

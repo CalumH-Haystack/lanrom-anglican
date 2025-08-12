@@ -9,10 +9,6 @@ export interface IApiLunch {
 
 export const submitLunch = async (data: IApiLunch) => {
 	const url: string = process.env.GATSBY_AZ_LUNCH_URL ?? '';
-	const response = await axios.post(url, data, {
-		headers: {
-			'x-functions-key': process.env.GATSBY_AZ_API_KEY
-		}
-	});
+	const response = await axios.post(url, data);
 	return response;
 };

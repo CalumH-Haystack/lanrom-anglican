@@ -62,7 +62,7 @@ export default function Footer() {
 						}}
 					/>
 				</Link>
-				<Link href='https://www.instagram.com/p/DHkTc2yyKsT/' target='_blank'>
+				<Link href='https://www.instagram.com/lancefield_romsey_anglican' target='_blank'>
 					<Instagram
 						sx={{
 							color: 'white',

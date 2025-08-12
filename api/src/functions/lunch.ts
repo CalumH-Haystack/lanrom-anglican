@@ -24,7 +24,7 @@ export async function lunch(
 		context.debug('Retrieved EmailClient');
 
 		const message: EmailMessage = {
-			senderAddress: email,
+			senderAddress: process.env['MAILTRAP_SENDER_EMAIL'],
 			content: {
 				subject: `${firstName} ${lastName} Lunch RSVP`,
 				plainText: `${firstName} ${lastName} has just RSVP'd for ${howMany} people`
@@ -32,7 +32,7 @@ export async function lunch(
 			recipients: {
 				to: [
 					{
-						address: process.env['MAILTRAP_SENDER_EMAIL']
+						address: process.env['MAILTRAP_RECEIVER_EMAIL']
 					}
 				]
 			},

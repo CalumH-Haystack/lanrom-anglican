@@ -29,7 +29,7 @@ export async function contact(
 		context.debug('Retrieved EmailClient');
 
 		const message: EmailMessage = {
-			senderAddress: email,
+			senderAddress: process.env['MAILTRAP_SENDER_EMAIL'],
 			content: {
 				subject: `${firstName} ${lastName} Re: ${subject}`,
 				plainText: body
@@ -37,7 +37,7 @@ export async function contact(
 			recipients: {
 				to: [
 					{
-						address: process.env['MAILTRAP_SENDER_EMAIL']
+						address: process.env['MAILTRAP_RECEIVER_EMAIL']
 					}
 				]
 			},

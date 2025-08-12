@@ -4,7 +4,7 @@ import {
 	HttpResponseInit,
 	InvocationContext
 } from '@azure/functions';
-import { EmailClient, KnownEmailSendStatus } from '@azure/communication-email'
+import { EmailClient, KnownEmailSendStatus } from '@azure/communication-email';
 
 export async function contact(
 	request: HttpRequest,
@@ -15,57 +15,70 @@ export async function contact(
 	const subject = request.params.subject;
 	const body = request.params.body;
 
-	const azClient = new EmailClient(process.env["AZ_MAIL_CONNECTION_STRING"]);
+	context.debug('Retrieving EmailClient');
 
-	const POLLER_WAIT_TIME = 10
-  try {
-    const message = {
-      senderAddress: "DoNotReply@e526ad64-dc57-4308-9397-0607d51be6b6.azurecomm.net",
-      content: {
-        subject: `${firstName} ${lastName} Re: ${subject}`,
-        plainText: body,
-      },
-      recipients: {
-        to: [
-          {
-            address: "calumhay@haystackdev.au",
-            displayName: "Admin",
-          },
-        ],
-      },
-    };
+	const azClient = new EmailClient(process.env['AZ_MAIL_CONNECTION_STRING']);
 
-    const poller = await azClient.beginSend(message);
+	context.debug('Retrieved EmailClient');
 
-    if (!poller.getOperationState().isStarted) {
-      throw "Poller was not started."
-    }
+	const POLLER_WAIT_TIME = 10;
+	try {
+		const message = {
+			senderAddress:
+				'DoNotReply@e526ad64-dc57-4308-9397-0607d51be6b6.azurecomm.net',
+			content: {
+				subject: `${firstName} ${lastName} Re: ${subject}`,
+				plainText: body
+			},
+			recipients: {
+				to: [
+					{
+						address: 'calumhay@haystackdev.au',
+						displayName: 'CalumHay@Haystack'
+					}
+				]
+			}
+		};
 
-    let timeElapsed = 0;
-    while(!poller.isDone()) {
-      poller.poll();
-      console.log("Email send polling in progress");
+		context.debug('Beginning send');
 
-      await new Promise(resolve => setTimeout(resolve, POLLER_WAIT_TIME * 1000));
-      timeElapsed += 10;
+		const poller = await azClient.beginSend(message);
 
-      if(timeElapsed > 18 * POLLER_WAIT_TIME) {
-        throw "Polling timed out.";
-      }
-    }
+		context.debug('Send begun');
 
-    if(poller.getResult().status === KnownEmailSendStatus.Succeeded) {
-      console.log(`Successfully sent the email (operation id: ${poller.getResult().id})`);
-		return { body: poller.getResult().id, status: 200 };
-    }
-    else {
-      throw poller.getResult().error;
-    }
-  } catch (e) {
-    console.error(e);
+		if (!poller.getOperationState().isStarted) {
+			throw 'Poller was not started.';
+		}
+
+		context.debug('isStarted');
+
+		let timeElapsed = 0;
+		while (!poller.isDone()) {
+			poller.poll();
+			context.debug('Email send polling in progress');
+
+			await new Promise(resolve =>
+				setTimeout(resolve, POLLER_WAIT_TIME * 1000)
+			);
+			timeElapsed += 10;
+
+			if (timeElapsed > 6 * POLLER_WAIT_TIME) {
+				throw 'Polling timed out.';
+			}
+		}
+
+		if (poller.getResult().status === KnownEmailSendStatus.Succeeded) {
+			console.log(
+				`Successfully sent the email (operation id: ${poller.getResult().id})`
+			);
+			return { body: poller.getResult().id, status: 200 };
+		} else {
+			throw poller.getResult().error;
+		}
+	} catch (e) {
+		console.error(e);
 		return { body: e.message, status: 500 };
-  }
-
+	}
 
 	// const { MailtrapClient } = require('mailtrap');
 

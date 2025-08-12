@@ -79,7 +79,7 @@ const ManageAnnouncements = () => {
 		const formData = new FormData();
 		formData.append('image', file!);
 		await axios
-			.post(process.env.GATSBY_AZ_UPDATE_ANNOUNCEMENT_URL ?? '', formData, {
+			.post(process.env.GATSBY_AZ_UPLOAD_ANNOUNCEMENT_URL ?? '', formData, {
 				headers: {
 					'x-functions-key': process.env.GATSBY_AZ_API_KEY,
 					'Content-Type': 'multipart/form-data'

@@ -1,4 +1,8 @@
-import { EmailClient, EmailMessage, KnownEmailSendStatus } from '@azure/communication-email';
+import {
+	EmailClient,
+	EmailMessage,
+	KnownEmailSendStatus
+} from '@azure/communication-email';
 import {
 	app,
 	HttpRequest,
@@ -10,13 +14,15 @@ export async function lunch(
 	request: HttpRequest,
 	context: InvocationContext
 ): Promise<HttpResponseInit> {
-	const firstName = request.params.firstName;
-	const lastName = request.params.lastName;
-	const email = request.params.email;
-	const howMany = request.params.howMany;
-
-	const POLLER_WAIT_TIME = 2;
 	try {
+		const firstName = request.params.firstName;
+		const lastName = request.params.lastName;
+		const email = request.params.email;
+		const howMany = request.params.howMany;
+
+		const POLLER_WAIT_TIME = Number(process.env['AZ_MAIL_POLLER_WAIT_TIME']);
+		const POLLER_TIMEOUT = Number(process.env['AZ_MAIL_POLLER_TIMEOUT']);
+
 		context.debug('Retrieving EmailClient');
 
 		const azClient = new EmailClient(process.env['AZ_MAIL_CONNECTION_STRING']);
@@ -63,9 +69,9 @@ export async function lunch(
 			await new Promise(resolve =>
 				setTimeout(resolve, POLLER_WAIT_TIME * 1000)
 			);
-			timeElapsed += 10;
+			timeElapsed += POLLER_WAIT_TIME;
 
-			if (timeElapsed > 6 * POLLER_WAIT_TIME) {
+			if (timeElapsed > POLLER_TIMEOUT * POLLER_WAIT_TIME) {
 				throw 'Polling timed out.';
 			}
 		}

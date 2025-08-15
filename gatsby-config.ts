@@ -7,7 +7,9 @@ require("dotenv").config({
 const config: GatsbyConfig = {
 	siteMetadata: {
 		title: `Anglican Parish of Lancefield with Romsey`,
-		siteUrl: `https://www.lancefieldromseyanglican.org/`
+		description: "Connecting with God in our community",
+		siteUrl: `https://www.lancefieldromseyanglican.org/`,
+		image: `/lanRomThumbnail.png`
 	},
 	// More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
 	// If you use VSCode you can also use the GraphQL plugin

@@ -9,7 +9,11 @@ const config: GatsbyConfig = {
 		title: `Anglican Parish of Lancefield with Romsey`,
 		description: "Connecting with God in our community",
 		siteUrl: `https://www.lancefieldromseyanglican.org/`,
-		image: `/lanRomThumbnail.png`
+		image: `https://www.lancefieldromseyanglican.org/lanRomThumbnail.png`,
+		"og:title": `Anglican Parish of Lancefield with Romsey`,
+		"og:description": "Connecting with God in our community",
+		"og:siteUrl": `https://www.lancefieldromseyanglican.org/`,
+		"og:image": `https://www.lancefieldromseyanglican.org/lanRomThumbnail.png`
 	},
 	// More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
 	// If you use VSCode you can also use the GraphQL plugin

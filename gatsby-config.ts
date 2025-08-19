@@ -1,19 +1,21 @@
 import type { GatsbyConfig } from 'gatsby';
 
-require("dotenv").config({
-  path: `.env.${process.env.NODE_ENV}`,
-})
+require('dotenv').config({
+	path: `.env.${process.env.NODE_ENV}`
+});
 
 const config: GatsbyConfig = {
 	siteMetadata: {
 		title: `Anglican Parish of Lancefield with Romsey`,
-		description: "Connecting with God in our community",
+		description: 'Connecting with God in our community',
 		siteUrl: `https://www.lancefieldromseyanglican.org/`,
 		image: `https://www.lancefieldromseyanglican.org/lanRomThumbnail.png`,
-		"og:title": `Anglican Parish of Lancefield with Romsey`,
-		"og:description": "Connecting with God in our community",
-		"og:siteUrl": `https://www.lancefieldromseyanglican.org/`,
-		"og:image": `https://www.lancefieldromseyanglican.org/lanRomThumbnail.png`
+		og: {
+			title: `Anglican Parish of Lancefield with Romsey`,
+			description: 'Connecting with God in our community',
+			siteUrl: `https://www.lancefieldromseyanglican.org/`,
+			image: `https://www.lancefieldromseyanglican.org/lanRomThumbnail.png`
+		}
 	},
 	// More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
 	// If you use VSCode you can also use the GraphQL plugin
@@ -49,10 +51,10 @@ const config: GatsbyConfig = {
 				]
 			}
 		},
-    `gatsby-plugin-image`,
-    `gatsby-plugin-sharp`,
-    `gatsby-transformer-sharp`,
-	],
+		`gatsby-plugin-image`,
+		`gatsby-plugin-sharp`,
+		`gatsby-transformer-sharp`
+	]
 	// flags: {
 	// 	DEV_SSR: true,
 	// },

@@ -35,7 +35,7 @@ const ManageOpshop = () => {
 
 	const fetchUrls = async () => {
 		await axios
-			.get(process.env.GATSBY_AZ_OpshopS_URL ?? '')
+			.get(process.env.GATSBY_AZ_OPSHOP_URL ?? '')
 			.then(res => {
 				const urls: Array<string> = res.data?.urls ?? [];
 
@@ -110,9 +110,9 @@ const ManageOpshop = () => {
 
 	return (
 		<App>
-			<Heading variant='h1'>Manage Opshops</Heading>
+			<Heading variant='h1'>Manage Opshop</Heading>
 			<Paragraph>
-				Use this area to manage the Opshops carousel.
+				Use this area to manage the Opshop carousel.
 			</Paragraph>
 			<Heading variant='h2'>Manage Carousel</Heading>
 			{showDeleteSpinner && <CircularProgress />}

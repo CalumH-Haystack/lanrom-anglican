@@ -8,7 +8,7 @@ import {
 	DialogTitle,
 	TextField
 } from '@mui/material';
-import { ISermonData } from './components';
+import { ISermonData } from '../../Sermons/components';
 
 interface IEditDialog {
 	isOpen: boolean;
@@ -18,6 +18,7 @@ interface IEditDialog {
 		name,
 		author,
 		series,
+		subject,
 		date,
 		url
 	}: ISermonData) => Promise<void>;
@@ -35,7 +36,13 @@ export const EditDialog = ({
 		setIsOpen(false);
 	};
 
-	const [updateData, setUpdateData] = React.useState<ISermonData>(data);
+	const initData: ISermonData = data;
+	if (initData.date.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
+		const dateSplit = initData.date.split('/');
+		initData.date = `${dateSplit[2]}-${dateSplit[1]}-${dateSplit[0]}`;
+	}
+
+	const [updateData, setUpdateData] = React.useState<ISermonData>(initData);
 
 	const onSubmit = (event: React.FormEvent) => {
 		event.preventDefault();
@@ -88,6 +95,17 @@ export const EditDialog = ({
 						label='Series'
 						type='text'
 						value={updateData.series}
+						onChange={onChange}
+						fullWidth
+						variant='standard'
+					/>
+					<TextField
+						required
+						margin='dense'
+						name='subject'
+						label='Subject'
+						type='text'
+						value={updateData.subject}
 						onChange={onChange}
 						fullWidth
 						variant='standard'

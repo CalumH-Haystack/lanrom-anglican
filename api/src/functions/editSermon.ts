@@ -19,9 +19,10 @@ export async function editSermon(
 	const name = request.params.name;
 	const author = request.params.author;
 	const series = request.params.series;
+	const subject = request.params.subject;
 	const date = request.params.date;
 
-	context.debug(fileName, name, author, series, date);
+	context.debug(fileName, name, author, series, subject, date);
 
 	try {
 
@@ -44,6 +45,7 @@ export async function editSermon(
 			name,
 			author,
 			series,
+			subject,
 			date
 		});
 

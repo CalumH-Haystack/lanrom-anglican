@@ -27,6 +27,7 @@ export interface ISermonData {
 	date: string;
 	url: string;
 	series: string;
+	subject: string;
 }
 
 interface ISeriesDropdown extends OutlinedSelectProps {
@@ -67,6 +68,7 @@ const SeriesDropdown = ({ value, setValue, sermons, sx }: ISeriesDropdown) => {
 interface ISermonListItem {
 	name: string;
 	author: string;
+	subject: string;
 	date: string;
 	playing: boolean;
 	onPause: Function;
@@ -76,6 +78,7 @@ interface ISermonListItem {
 const SermonListItem = ({
 	name,
 	author,
+	subject,
 	date,
 	playing,
 	onPause,
@@ -106,6 +109,9 @@ const SermonListItem = ({
 				</Typography>
 				<Typography variant='subtitle2' textAlign='start'>
 					{author} - {date}
+				</Typography>
+				<Typography variant='subtitle2' textAlign='start'>
+					{subject}
 				</Typography>
 			</Box>
 			<Box
@@ -326,6 +332,7 @@ export const SermonPlayer = () => {
 						<SermonListItem
 							name={title}
 							author={sermon.author}
+							subject={sermon.subject}
 							date={sermon.date}
 							playing={sermon.url === nowPlaying && !paused}
 							onPause={() => onPause()}

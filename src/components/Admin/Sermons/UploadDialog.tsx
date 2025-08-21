@@ -10,9 +10,9 @@ import {
 	TextField,
 	useTheme
 } from '@mui/material';
-import { ISermonData } from './components';
 import { VisuallyHiddenInput } from '../common';
 import FolderIcon from '@mui/icons-material/Folder';
+import { ISermonData } from '../../Sermons/components';
 
 interface IUploadDialog {
 	isOpen: boolean;
@@ -31,7 +31,6 @@ export const UploadDialog = ({
 	const theme = useTheme();
 
 	const [file, setFile] = React.useState<File>();
-	console.log('calum', file);
 
 	const handleClose = () => {
 		setUpdateData({
@@ -39,7 +38,8 @@ export const UploadDialog = ({
 			author: '',
 			date: '',
 			url: '',
-			series: ''
+			series: '',
+			subject: ''
 		});
 		setIsOpen(false);
 	};
@@ -49,7 +49,8 @@ export const UploadDialog = ({
 		author: '',
 		date: '',
 		url: '',
-		series: ''
+		series: '',
+		subject: ''
 	});
 
 	const onSubmit = (event: React.FormEvent) => {
@@ -103,6 +104,17 @@ export const UploadDialog = ({
 						label='Series'
 						type='text'
 						value={updateData.series}
+						onChange={onChange}
+						fullWidth
+						variant='standard'
+					/>
+					<TextField
+						required
+						margin='dense'
+						name='subject'
+						label='Subject'
+						type='text'
+						value={updateData.subject}
 						onChange={onChange}
 						fullWidth
 						variant='standard'

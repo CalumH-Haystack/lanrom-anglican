@@ -21,6 +21,7 @@ export async function uploadSermon(
 		const title = formdata.get('name') as string;
 		const author = formdata.get('author') as string;
 		const series = formdata.get('series') as string;
+		const subject = formdata.get('subject') as string;
 		const date = formdata.get('date') as string;
 		if(!date.match(/^\d{4}-\d{2}-\d{2}$/)) {
 			status = 400;
@@ -58,6 +59,7 @@ export async function uploadSermon(
 				name: title,
 				author,
 				series,
+				subject,
 				date
 			}
 		};

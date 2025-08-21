@@ -20,14 +20,7 @@ import { Edit, Delete } from '@mui/icons-material';
 import { DeleteDialog, INotificationState, Notification } from '../common';
 import { EditDialog } from './EditDialog';
 import { UploadDialog } from './UploadDialog';
-
-export interface ISermonData {
-	name: string;
-	author: string;
-	date: string;
-	url: string;
-	series: string;
-}
+import { ISermonData } from '../../Sermons/components';
 
 interface ISeriesDropdown extends OutlinedSelectProps {
 	value: string;
@@ -66,7 +59,7 @@ const SeriesDropdown = ({ value, setValue, sermons, sx }: ISeriesDropdown) => {
 
 interface IEditSermonListItem {
 	sermon: ISermonData;
-	onEdit: ({ name, author, series, date, url }: ISermonData) => Promise<void>;
+	onEdit: ({ name, author, series, subject, date, url }: ISermonData) => Promise<void>;
 	onDelete: (name: string) => Promise<void>;
 }
 
@@ -119,6 +112,9 @@ const EditSermonListItem = ({
 				</Typography>
 				<Typography variant='subtitle2' textAlign='start'>
 					{sermon.author} - {sermon.date}
+				</Typography>
+				<Typography variant='subtitle2' textAlign='start'>
+					{sermon.subject}
 				</Typography>
 				<Typography variant='subtitle2' textAlign='start'>
 					{fileName}
@@ -253,16 +249,16 @@ export const SermonEditList = ({
 		setIsLoading(false);
 	};
 
-	const onEdit = async ({ name, author, series, date, url }: ISermonData) => {
+	const onEdit = async ({ name, author, series, subject, date, url }: ISermonData) => {
 		setIsLoading(true);
 		const params = {
 			name,
 			author,
 			series,
+			subject,
 			date,
 			fileName: url.split('sermons/')[1]
 		}
-		console.log('calum date', date);
 		await axios
 			.put(process.env.GATSBY_AZ_UPDATE_SERMON_URL ?? '', params, {
 				headers: {
@@ -289,7 +285,7 @@ export const SermonEditList = ({
 	};
 
 	const onUpload = async (
-		{ name, author, series, date }: ISermonData,
+		{ name, author, series, subject, date }: ISermonData,
 		file: File
 	) => {
 		setIsLoading(true);
@@ -298,6 +294,7 @@ export const SermonEditList = ({
 		formData.append('name', name);
 		formData.append('author', author);
 		formData.append('series', series);
+		formData.append('subject', subject);
 		formData.append('date', date);
 		await axios
 			.post(process.env.GATSBY_AZ_UPLOAD_SERMON_URL!, formData, {

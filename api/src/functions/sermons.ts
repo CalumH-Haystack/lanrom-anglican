@@ -12,6 +12,7 @@ interface ISermonData {
 	date: string;
 	url: string;
 	series: string;
+	subject: string;
 }
 
 export async function sermons(
@@ -30,7 +31,7 @@ export async function sermons(
 			containerName
 		);
 
-		console.log(`Retrieved at ${Date().toLocaleString()}:`);
+		context.debug(`Retrieved at ${Date().toLocaleString()}:`);
 		for await (const blob of containerClient.listBlobsFlat()) {
 			// Get Blob Client from name, to get the URL
 			const tempBlockBlobClient = containerClient.getBlockBlobClient(blob.name);
@@ -40,16 +41,15 @@ export async function sermons(
 				name: properties.metadata.name,
 				author: properties.metadata.author,
 				series: properties.metadata.series,
+				subject: properties.metadata.subject,
 				date: properties.metadata.date
 			};
 
 			// Push newly created sermon object
 			sermons.push(sermon);
 		}
-	} catch {
-		e => {
-			context.log(e);
-		};
+	} catch (e) {
+		context.error(e);
 	}
 
 	return {

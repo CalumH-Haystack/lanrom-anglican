@@ -21,8 +21,7 @@ const Admin = () => {
 		<App>
 			<Heading variant='h1'>Welcome, {userName}</Heading>
 			<Paragraph>
-				Use this admin area to manage the announcements carousel on the
-				homepage, or to upload and manage sermons.
+				Use this admin area to manage the announcements and opshop carousels, or to upload and manage sermons.
 			</Paragraph>
 			<Box
 				sx={{
@@ -45,6 +44,18 @@ const Admin = () => {
 					onClick={() => navigate('/admin/announcements')}
 				>
 					Manage Announcements
+				</Button>
+
+				<Button
+					variant='contained'
+					sx={{
+						padding: '4px 24px',
+						margin: '16px auto',
+						backgroundColor: theme.palette.grey[900]
+					}}
+					onClick={() => navigate('/admin/opshop')}
+				>
+					Manage Opshop
 				</Button>
 
 				<Button

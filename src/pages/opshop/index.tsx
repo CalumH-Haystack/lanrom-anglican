@@ -5,6 +5,7 @@ import { HeadFC } from 'gatsby';
 import { BOX_SHADOW } from '../../theme/palette';
 import { StaticImage } from 'gatsby-plugin-image';
 import { Heading, Paragraph } from '../../utils';
+import { OpshopCarousel } from '../../components/Opshop/OpshopCarousel';
 
 const OpShop = () => {
 	return (
@@ -70,21 +71,7 @@ const OpShop = () => {
 					</Typography>
 				</li>
 			</ul>
-			<Box
-				sx={{
-					boxShadow: BOX_SHADOW,
-					marginBottom: '16px',
-					width: '100%'
-				}}
-			>
-				<StaticImage
-					src='../../images/opshop.png'
-					alt='Aerial view of Christ Church Lancefield'
-					placeholder='blurred'
-					layout='constrained'
-					aspectRatio={2}
-				/>
-			</Box>
+			<OpshopCarousel />
 		</App>
 	);
 };

@@ -26,10 +26,7 @@ const Admin = () => {
 			<Box
 				sx={{
 					display: 'flex',
-					flexDirection: {
-						xs: 'column',
-						md: 'row'
-					},
+					flexDirection: 'column',
 					width: '100%',
 					alignContent: 'space-around'
 				}}

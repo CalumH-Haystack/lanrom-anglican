@@ -60,9 +60,7 @@ export async function contact(
 			throw 'Poller was not started.';
 		}
 
-		const response: string = `ID: ${poller.getResult().id}, Status: ${poller.getResult().status}, Error: ${poller.getResult().error}`;
-
-		return { body: response, status: 200 };
+		return { status: 200 };
 
 		// context.debug('isStarted');
 

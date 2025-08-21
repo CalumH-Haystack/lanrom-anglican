@@ -21,8 +21,8 @@ export async function contact(
 		const body = request.params.message;
 		const email = request.params.email;
 
-		const POLLER_WAIT_TIME = Number(process.env['AZ_MAIL_POLLER_WAIT_TIME']);
-		const POLLER_TIMEOUT = Number(process.env['AZ_MAIL_POLLER_TIMEOUT']);
+		// const POLLER_WAIT_TIME = Number(process.env['AZ_MAIL_POLLER_WAIT_TIME']);
+		// const POLLER_TIMEOUT = Number(process.env['AZ_MAIL_POLLER_TIMEOUT']);
 
 		context.debug('Retrieving EmailClient');
 
@@ -60,31 +60,35 @@ export async function contact(
 			throw 'Poller was not started.';
 		}
 
-		context.debug('isStarted');
+		const response: string = `ID: ${poller.getResult().id}, Status: ${poller.getResult().status}, Error: ${poller.getResult().error}`;
 
-		let timeElapsed = 0;
-		while (!poller.isDone()) {
-			poller.poll();
-			context.debug('Email send polling in progress');
+		return { body: response, status: 200 };
 
-			await new Promise(resolve =>
-				setTimeout(resolve, POLLER_WAIT_TIME * 1000)
-			);
-			timeElapsed += POLLER_WAIT_TIME;
+		// context.debug('isStarted');
 
-			if (timeElapsed > POLLER_TIMEOUT * POLLER_WAIT_TIME) {
-				throw 'Polling timed out.';
-			}
-		}
+		// let timeElapsed = 0;
+		// while (!poller.isDone()) {
+		// 	poller.poll();
+		// 	context.debug('Email send polling in progress');
 
-		if (poller.getResult().status === KnownEmailSendStatus.Succeeded) {
-			context.debug(
-				`Successfully sent the email (operation id: ${poller.getResult().id})`
-			);
-			return { body: poller.getResult().id, status: 200 };
-		} else {
-			throw poller.getResult().error;
-		}
+		// 	await new Promise(resolve =>
+		// 		setTimeout(resolve, POLLER_WAIT_TIME * 1000)
+		// 	);
+		// 	timeElapsed += POLLER_WAIT_TIME;
+
+		// 	if (timeElapsed > POLLER_TIMEOUT * POLLER_WAIT_TIME) {
+		// 		throw 'Polling timed out.';
+		// 	}
+		// }
+
+		// if (poller.getResult().status === KnownEmailSendStatus.Succeeded) {
+		// 	context.debug(
+		// 		`Successfully sent the email (operation id: ${poller.getResult().id})`
+		// 	);
+		// 	return { body: poller.getResult().id, status: 200 };
+		// } else {
+		// 	throw poller.getResult().error;
+		// }
 	} catch (e) {
 		context.error(e);
 		return { body: e.message, status: 500 };

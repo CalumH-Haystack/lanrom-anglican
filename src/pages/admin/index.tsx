@@ -3,22 +3,18 @@ import App from '../../components/App/App';
 import { HeadFC, navigate } from 'gatsby';
 import { Heading, Paragraph } from '../../utils';
 import { Box, Button, Link, useTheme } from '@mui/material';
+import { getUserName } from '../../utils/api';
 
 const Admin = () => {
 	const theme = useTheme();
-	const [userName, setUserName] = React.useState('Administrator');
+	const [userName, setUserName] = React.useState<string | null>('Administrator');
 
-	async function getUserInfo() {
-		const response = await fetch('/.auth/me');
-		const payload = await response.json();
-		const { clientPrincipal } = payload;
-		if (clientPrincipal && clientPrincipal.userDetails) {
-			setUserName(clientPrincipal.userDetails);
-		}
+	const fetchUser = async () => {
+		setUserName(await getUserName())
 	}
 
 	React.useEffect(() => {
-		getUserInfo();
+		fetchUser();
 	}, []);
 
 	return (

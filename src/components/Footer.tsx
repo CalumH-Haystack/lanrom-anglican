@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import { Facebook, Instagram } from '@mui/icons-material';
 import { StaticImage } from 'gatsby-plugin-image';
+import { getUserName } from '../utils/api';
 
 const FooterText = styled(Typography)(({ theme }) => ({
 	margin: useMediaQuery(theme.breakpoints.up('md')) ? '0px 24px' : '2px 0 2px',
@@ -17,6 +18,16 @@ const FooterText = styled(Typography)(({ theme }) => ({
 }));
 
 export default function Footer() {
+	const [userName, setUserName] = React.useState<string | null>(null);
+
+	const fetchUser = async () => {
+		setUserName(await getUserName());
+	};
+
+	React.useEffect(() => {
+		fetchUser();
+	}, []);
+
 	const theme = useTheme();
 	return (
 		<Box
@@ -62,7 +73,10 @@ export default function Footer() {
 						}}
 					/>
 				</Link>
-				<Link href='https://www.instagram.com/lancefield_romsey_anglican' target='_blank'>
+				<Link
+					href='https://www.instagram.com/lancefield_romsey_anglican'
+					target='_blank'
+				>
 					<Instagram
 						sx={{
 							color: 'white',
@@ -92,6 +106,28 @@ export default function Footer() {
 					Privacy Policy
 				</FooterText>
 			</Link>
+			{userName !== null && (
+				<Link
+					href='/logout'
+					sx={{
+						textDecoration: 'none'
+					}}
+				>
+					<FooterText
+						variant='subtitle1'
+						sx={{
+							textDecoration: 'none',
+							textDecorationColor: 'white',
+							'&:hover, &:active': {
+								textDecoration: 'underline'
+							},
+							marginLeft: '0px'
+						}}
+					>
+						Logout
+					</FooterText>
+				</Link>
+			)}
 			<FooterText
 				variant='subtitle1'
 				sx={{
@@ -112,7 +148,7 @@ export default function Footer() {
 				{useMediaQuery(theme.breakpoints.up('md')) ? (
 					<StaticImage
 						src='../images/madeByHaystackWhite.png'
-						alt='Made by Haystack Web & Mobile Apps'
+						alt='Made by Haystack'
 						placeholder='blurred'
 						height={24}
 						style={{
@@ -122,7 +158,7 @@ export default function Footer() {
 				) : (
 					<StaticImage
 						src='../images/madeByHaystackWhite.png'
-						alt='Made by Haystack Web & Mobile Apps'
+						alt='Made by Haystack'
 						placeholder='blurred'
 						height={40}
 						style={{

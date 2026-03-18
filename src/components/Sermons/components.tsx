@@ -160,14 +160,9 @@ export const SermonPlayer = () => {
 			.get(process.env.GATSBY_AZ_SERMONS_URL ?? '')
 			.then(res => {
 				const sermons: Array<ISermonData> = res.data?.sermons ?? [];
-				sermons.forEach(sermon => {
-					if (sermon.date && sermon.date.match(/^\d{4}-\d{2}-\d{2}$/)) {
-						sermon.date = Intl.DateTimeFormat().format(new Date(sermon.date));
-					};
-				});
 				sermons.sort((sermon, next) => {
 					try {
-						return new Date(sermon.date).getTime() - new Date(next.date).getTime();
+						return new Date(next.date).getTime() - new Date(sermon.date).getTime();
 					} catch {
 						return -1;
 					}
@@ -328,12 +323,20 @@ export const SermonPlayer = () => {
 				{sermons.filter(sermonFilter).map(sermon => {
 					const fileName = sermon.url.split('/').pop();
 					const title = sermon.name ?? fileName?.slice(-10);
+					let date;
+					try {
+						if (sermon.date && sermon.date.match(/^\d{4}-\d{2}-\d{2}$/)) {
+							date = Intl.DateTimeFormat().format(new Date(sermon.date));
+						};
+					} catch {
+						date = sermon.date;
+					}
 					return (
 						<SermonListItem
 							name={title}
 							author={sermon.author}
 							subject={sermon.subject}
-							date={sermon.date}
+							date={date!}
 							playing={sermon.url === nowPlaying && !paused}
 							onPause={() => onPause()}
 							onPlay={() => onPlay(sermon.url)}

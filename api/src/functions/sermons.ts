@@ -20,10 +20,11 @@ export async function sermons(
 	context: InvocationContext
 ): Promise<HttpResponseInit> {
 	const sermons: Array<ISermonData> = [];
+	const serviceUrl = `https://lanromstorage.blob.core.windows.net`;
 
 	try {
-		const blobServiceClient = new BlobServiceClient(
-			`https://lanromstorage.blob.core.windows.net`
+		const blobServiceClient: BlobServiceClient = new BlobServiceClient(
+			serviceUrl,
 		);
 
 		const containerName = 'sermons';
@@ -32,17 +33,18 @@ export async function sermons(
 		);
 
 		context.debug(`Retrieved at ${Date().toLocaleString()}:`);
-		for await (const blob of containerClient.listBlobsFlat()) {
+		for await (const blob of containerClient.listBlobsFlat({
+			includeMetadata: true
+		})) {
 			// Get Blob Client from name, to get the URL
-			const tempBlockBlobClient = containerClient.getBlockBlobClient(blob.name);
-			const properties = await tempBlockBlobClient.getProperties();
+			const metadata = blob.metadata;
 			const sermon: ISermonData = {
-				url: tempBlockBlobClient.url,
-				name: properties.metadata.name,
-				author: properties.metadata.author,
-				series: properties.metadata.series,
-				subject: properties.metadata.subject,
-				date: properties.metadata.date
+				url: serviceUrl.concat(`/${containerName}/${blob.name}`),
+				name: metadata.name,
+				author: metadata.author,
+				series: metadata.series,
+				subject: metadata.subject,
+				date: metadata.date
 			};
 
 			// Push newly created sermon object

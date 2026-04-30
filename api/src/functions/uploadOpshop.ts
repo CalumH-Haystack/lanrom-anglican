@@ -6,7 +6,6 @@ import {
 } from '@azure/functions';
 import { DefaultAzureCredential } from '@azure/identity';
 import { BlobServiceClient } from '@azure/storage-blob';
-import { File } from 'node:buffer';
 
 export async function uploadOpshop(
 	request: HttpRequest,

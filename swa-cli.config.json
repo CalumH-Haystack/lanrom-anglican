@@ -3,7 +3,7 @@
   "configurations": {
     "lanrom-anglican": {
       "appLocation": ".",
-      "apiLocation": ".",
+      "apiLocation": "./api",
       "outputLocation": "build",
       "apiLanguage": "node",
       "apiVersion": "16",

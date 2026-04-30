@@ -56,7 +56,7 @@ export async function contact(
 
 		context.debug('Send begun');
 
-		if (!poller.getOperationState().isStarted) {
+		if (poller.getOperationState().status === "notStarted") {
 			throw 'Poller was not started.';
 		}
 

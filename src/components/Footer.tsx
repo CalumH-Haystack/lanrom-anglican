@@ -134,7 +134,7 @@ export default function Footer() {
 					margin: 0
 				}}
 			>
-				© 2025 Romsey Lancefield Anglican
+				© {new Date().getFullYear()} Romsey Lancefield Anglican
 			</FooterText>
 			<Link
 				href='https://www.haystackdev.au/'
@@ -170,3 +170,4 @@ export default function Footer() {
 		</Box>
 	);
 }
+
